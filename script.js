@@ -81,7 +81,8 @@ mobileMenuBtn.addEventListener('click', () => {
 
 document.querySelectorAll('.post-card').forEach((card, index) => {
     card.style.opacity = '0';
-    card.style.animationDelay = `${index * 0.2}s`;
+    card.style.animationDelay = `${index * 0.15}s`;
+    card.style.transition = 'opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
     
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
@@ -165,14 +166,20 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 });
 
 let lastScroll = 0;
+const header = document.querySelector('.header');
+if (header) {
+    header.style.transition = 'transform 0.4s cubic-bezier(0.4, 0, 0.2, 1)';
+}
+
 window.addEventListener('scroll', () => {
     const currentScroll = window.pageYOffset;
-    const header = document.querySelector('.header');
     
-    if (currentScroll > lastScroll && currentScroll > 100) {
-        header.style.transform = 'translateY(-100%)';
-    } else {
-        header.style.transform = 'translateY(0)';
+    if (header) {
+        if (currentScroll > lastScroll && currentScroll > 100) {
+            header.style.transform = 'translateY(-100%)';
+        } else {
+            header.style.transform = 'translateY(0)';
+        }
     }
     
     lastScroll = currentScroll;
@@ -181,7 +188,7 @@ window.addEventListener('scroll', () => {
 window.addEventListener('load', () => {
     document.body.style.opacity = '0';
     setTimeout(() => {
-        document.body.style.transition = 'opacity 0.5s ease';
+        document.body.style.transition = 'opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
         document.body.style.opacity = '1';
     }, 100);
 });

