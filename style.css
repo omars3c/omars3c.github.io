@@ -210,6 +210,9 @@ p {
     fill: currentColor;
     object-fit: contain;
     border-radius: 2px;
+    font-size: 0;
+    /* Hides alt text if image breaks */
+    display: block;
 }
 
 /* 'Read' Button Pill */
@@ -331,10 +334,47 @@ p {
     .bento-grid {
         display: flex;
         flex-direction: column;
+        gap: 16px;
     }
 
     body {
-        padding: 20px;
+        padding: 16px;
         align-items: flex-start;
+        /* Allow scrolling from top */
+    }
+
+    .card {
+        padding: 20px;
+    }
+
+    h1 {
+        font-size: 2rem;
+    }
+
+    .big-number {
+        font-size: 2.5rem;
+    }
+
+    /* Make Hall of Fame 2x2 on mobile */
+    .hof-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+    }
+
+    .brand-pill {
+        justify-content: center;
+        /* Center content in pill */
+        padding: 12px;
+    }
+
+    /* Adjust skills gap */
+    .card-profile div[style*="display: flex"] {
+        gap: 6px;
+    }
+
+    /* Ensure background helps readability on small screens */
+    #bg-canvas {
+        opacity: 0.6;
     }
 }
