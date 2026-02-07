@@ -9,8 +9,8 @@
     <meta property="og:title" content="Omar Alikhanov | Cyber Security Engineer & Founder">
     <meta property="og:description" content="Hacked Fortune 500 at 18. Founder of tmeet. AI Security Researcher.">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://alikhanov.com">
-    <meta property="og:image" content="https://alikhanov.com/photos/profile.jpg">
+    <meta property="og:url" content="https://omaralikhanov.com">
+    <meta property="og:image" content="https://omaralikhanov.com/photos/profile.jpg">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Omar Alikhanov | @omars3c">
 
@@ -20,20 +20,27 @@
     <!-- JSON-LD Schema -->
     <script type="application/ld+json">
     {
-      "@context": "https://schema.org/",
-      "@type": "Person",
-      "name": "Omar Alikhanov",
-      "jobTitle": "Cyber Security Engineer",
-      "alternateName": "@omars3c",
-      "url": "https://alikhanov.com",
-      "founder": {
-        "@type": "Organization",
-        "name": "tmeet",
-        "description": "Full-cycle AI platform for HR industry with a custom sandbox for developer interviews, more than 12 engineers from fintech and banking"
-      },
-      "description": "Cybersecurity expert who legally breached a Fortune 500 company. Recognized by OpenAI, CERT-EU, and Grammarly.",
-      "knowsAbout": ["AI Security", "Pentesting", "Infrastructure Defense", "Red Teaming"],
-      "award": ["OpenAI Hall of Fame", "CERT-EU Hall of Fame", "1st Place Secure Tomorrow Hackathon"]
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Person",
+          "@id": "https://alikhanov.com",
+          "name": "Omar Alikhanov",
+          "jobTitle": "Cyber Security Engineer",
+          "alternateName": "@omars3c",
+          "url": "https://alikhanov.com",
+          "description": "Cybersecurity expert who legally breached a Fortune 500 company. Recognized by OpenAI, CERT-EU, and Grammarly.",
+          "knowsAbout": ["AI Security", "Pentesting", "Infrastructure Defense", "Red Teaming"],
+          "award": ["OpenAI Hall of Fame", "CERT-EU Hall of Fame", "1st Place Secure Tomorrow Hackathon"]
+        },
+        {
+          "@type": "Organization",
+          "name": "tmeet",
+          "founder": { "@id": "https://alikhanov.com" },
+          "description": "Full-cycle AI platform for HR industry with a custom sandbox for developer interviews, more than 12 engineers from fintech and banking",
+          "employee": { "@id": "https://alikhanov.com" }
+        }
+      ]
     }
     </script>
 </head>
@@ -222,6 +229,4 @@
     <script src="script.js"></script>
 </body>
 
-
 </html>
-
