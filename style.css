@@ -1,380 +1,581 @@
-/* Bento Grid - Compact & Dynamic */
+/* ============================================================
+   Omar Alikhanov - Security Wiki
+   Style: encyclopedia article (Wikipedia / Vector-inspired)
+   ============================================================ */
+
 :root {
-    --bg-color: #050505;
-    /* Deepest black */
-    --card-bg: rgba(20, 20, 20, 0.6);
-    --card-border: rgba(255, 255, 255, 0.08);
-    --text-primary: #eee;
-    --text-secondary: #888;
-    --accent: #fff;
-    --font-heading: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-    --grid-gap: 16px;
+    --page-bg: #f8f9fa;
+    --content-bg: #ffffff;
+    --text: #202122;
+    --text-soft: #54595d;
+    --link: #3366cc;
+    --link-visited: #795cb2;
+    --link-red: #b32424;
+    --border: #a2a9b1;
+    --border-soft: #c8ccd1;
+    --rule: #a2a9b1;
+    --infobox-bg: #f8f9fa;
+    --infobox-head: #ccecf5;
+    --table-head: #eaecf0;
+    --table-stripe: #f8f9fa;
+    --accent: #36c;
+
+    --serif: 'Linux Libertine', 'Georgia', 'Times New Roman', Times, serif;
+    --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
 }
 
 * {
-    margin: 0;
-    padding: 0;
     box-sizing: border-box;
 }
 
-body {
-    background-color: var(--bg-color);
-    color: var(--text-primary);
-    font-family: var(--font-heading);
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 40px 20px;
-    overflow-x: hidden;
-    position: relative;
+html {
+    -webkit-text-size-adjust: 100%;
 }
 
-/* Background Canvas */
-#bg-canvas {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -1;
-    /* Behind everything */
-    pointer-events: none;
-    /* Let clicks pass through */
+/* ---------- i18n language switch ---------- */
+body[data-lang="en"] [data-lang="ru"] {
+    display: none !important;
 }
 
-/* The Main Grid container */
-.bento-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: auto auto auto;
-    gap: var(--grid-gap);
-    max-width: 1000px;
-    width: 100%;
-    z-index: 1;
-    /* Above canvas */
+body[data-lang="ru"] [data-lang="en"] {
+    display: none !important;
 }
 
-/* Common Card Styles */
-.card {
-    background: var(--card-bg);
-    border: 1px solid var(--card-border);
-    border-radius: 20px;
-    padding: 24px;
-    position: relative;
+.lang-switch {
+    display: inline-flex;
+    border: 1px solid var(--border-soft);
+    border-radius: 3px;
     overflow: hidden;
-    backdrop-filter: blur(10px);
-    transition: transform 0.3s ease, border-color 0.3s ease;
-    display: flex;
-    flex-direction: column;
+    align-self: center;
 }
 
-.card:hover {
-    border-color: rgba(255, 255, 255, 0.2);
-    transform: translateY(-2px);
-}
-
-/* Dynamic Spotlight Effect (handled by JS) */
-.card::before {
-    content: '';
-    position: absolute;
-    top: var(--y, -100px);
-    left: var(--x, -100px);
-    width: 400px;
-    height: 400px;
-    background: radial-gradient(circle, rgba(255, 255, 255, 0.06) 0%, transparent 70%);
-    transform: translate(-50%, -50%);
-    pointer-events: none;
-    opacity: 0;
-    transition: opacity 0.3s;
-}
-
-.card:hover::before {
-    opacity: 1;
-}
-
-/* Typography Inside Cards */
-h1 {
-    font-size: 2.5rem;
-    font-weight: 700;
-    letter-spacing: -0.02em;
-    margin-bottom: 0.5rem;
-    line-height: 1.1;
-}
-
-h2 {
-    font-size: 1.2rem;
-    font-weight: 600;
-    margin-bottom: 1rem;
-    color: var(--text-primary);
-}
-
-h3 {
-    font-size: 1rem;
-    color: var(--text-secondary);
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    font-size: 0.75rem;
-    margin-bottom: 0.75rem;
-}
-
-p {
-    font-size: 0.95rem;
-    color: var(--text-secondary);
-    line-height: 1.5;
-}
-
-.highlight {
-    color: var(--text-primary);
-    font-weight: 500;
-}
-
-/* SPECIFIC CARD LAYOUTS */
-
-/* 1. Hero Profile (Top Left, 2x2) */
-.card-profile {
-    grid-column: span 2;
-    grid-row: span 2;
-    justify-content: space-between;
-}
-
-.status-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    background: rgba(255, 255, 255, 0.05);
-    padding: 6px 12px;
-    border-radius: 100px;
+.lang-switch button {
+    background: #fff;
+    border: none;
+    padding: 5px 11px;
+    font: inherit;
     font-size: 0.8rem;
-    margin-bottom: 1rem;
-    width: fit-content;
-}
-
-.status-dot {
-    width: 6px;
-    height: 6px;
-    background: #00ff88;
-    border-radius: 50%;
-    box-shadow: 0 0 8px #00ff88;
-}
-
-/* 2. The Big Flex (Top Right, 2x1) */
-.card-story {
-    grid-column: span 2;
-    background: linear-gradient(135deg, rgba(30, 30, 30, 0.8), rgba(20, 20, 20, 0.6));
-}
-
-.big-number {
-    font-size: 3rem;
-    font-weight: 700;
-    color: #fff;
-    line-height: 1;
-    margin-bottom: 4px;
-}
-
-/* 3. Tech Stack / Roles (Middle Right, 1x1) */
-.card-roles {
-    grid-column: span 1;
-}
-
-/* 4. Socials (Middle Right, 1x1) */
-.card-socials {
-    grid-column: span 1;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-}
-
-.social-link {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    text-decoration: none;
-    color: var(--text-secondary);
-    padding: 8px 12px;
-    background: rgba(255, 255, 255, 0.03);
-    border-radius: 8px;
-    transition: all 0.2s;
-    font-size: 0.9rem;
-}
-
-.social-link:hover {
-    background: rgba(255, 255, 255, 0.08);
-    color: #fff;
-}
-
-.brand-pill svg,
-.brand-pill img {
-    width: 20px;
-    height: 20px;
-    fill: currentColor;
-    object-fit: contain;
-    border-radius: 2px;
-    font-size: 0;
-    /* Hides alt text if image breaks */
-    display: block;
-}
-
-/* 'Read' Button Pill */
-.read-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    background: rgba(255, 255, 255, 0.1);
-    color: #fff;
-    text-decoration: none;
-    padding: 6px 14px;
-    border-radius: 20px;
-    font-size: 0.85rem;
-    font-weight: 500;
-    transition: all 0.2s ease;
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    margin-top: 1rem;
-    width: fit-content;
-}
-
-.read-btn:hover {
-    background: rgba(255, 255, 255, 0.2);
-    transform: translateX(4px);
-    border-color: rgba(255, 255, 255, 0.2);
-}
-
-.read-btn .arrow {
-    transition: transform 0.2s ease;
-}
-
-.read-btn:hover .arrow {
-    transform: translateX(2px);
-}
-
-/* Certification Highlight */
-.cert-wrapper {
-    margin-top: auto;
-    padding-top: 16px;
-    border-top: 1px solid rgba(255, 255, 255, 0.08);
-}
-
-.cert-badge {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: rgba(0, 255, 136, 0.05);
-    /* Subtle green tint for "Verified" vibe */
-    border: 1px solid rgba(0, 255, 136, 0.2);
-    padding: 10px 14px;
-    border-radius: 12px;
-    text-decoration: none;
-    transition: all 0.3s ease;
-}
-
-.cert-badge:hover {
-    background: rgba(0, 255, 136, 0.1);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 255, 136, 0.1);
-}
-
-.cert-info h4 {
-    color: #fff;
-    font-size: 0.9rem;
     font-weight: 600;
-    margin-bottom: 2px;
+    color: var(--link);
+    cursor: pointer;
 }
 
-.cert-info p {
-    color: rgba(255, 255, 255, 0.6);
-    font-size: 0.7rem;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
+.lang-switch button+button {
+    border-left: 1px solid var(--border-soft);
+}
+
+.lang-switch button:hover {
+    background: #f1f3f5;
+}
+
+.lang-switch button.active {
+    background: var(--link);
+    color: #fff;
+    cursor: default;
+}
+
+body {
     margin: 0;
+    background: var(--page-bg);
+    color: var(--text);
+    font-family: var(--sans);
+    font-size: 16px;
+    line-height: 1.6;
 }
 
-.cert-action {
-    color: #00ff88;
-    font-size: 0.8rem;
-    font-weight: 600;
+a {
+    color: var(--link);
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+a:visited {
+    color: var(--link-visited);
+}
+
+/* ---------- Page shell ---------- */
+.wiki {
+    max-width: 1000px;
+    margin: 0 auto;
+    background: var(--content-bg);
+    border-left: 1px solid var(--border-soft);
+    border-right: 1px solid var(--border-soft);
+    min-height: 100vh;
+}
+
+/* ---------- Top bar / tabs ---------- */
+.wiki-topbar {
     display: flex;
     align-items: center;
-    gap: 4px;
-}
-
-/* 5. Hall of Fame (Bottom Row, 4x1) */
-.card-hof {
-    grid-column: span 4;
-}
-
-.hof-grid {
-    display: flex;
     justify-content: space-between;
-    gap: 20px;
-    margin-top: 10px;
+    gap: 16px;
+    padding: 10px 22px 0;
+    border-bottom: 1px solid var(--border-soft);
+    flex-wrap: wrap;
 }
 
-.brand-pill {
+.wiki-brand {
     display: flex;
     align-items: center;
     gap: 10px;
-    font-size: 0.9rem;
-    color: #aaa;
-    background: rgba(255, 255, 255, 0.03);
-    padding: 10px 16px;
-    border-radius: 12px;
-    flex: 1;
-    border: 1px solid transparent;
-    transition: all 0.2s;
+    padding-bottom: 8px;
+    margin-right: auto;
 }
 
-.brand-pill:hover {
-    background: rgba(255, 255, 255, 0.08);
-    border-color: rgba(255, 255, 255, 0.1);
+.wiki-logo {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: #202122;
     color: #fff;
+    font-family: var(--serif);
+    font-weight: 700;
+    font-size: 1.2rem;
 }
 
-/* Mobile Responsive */
-@media (max-width: 768px) {
-    .bento-grid {
-        display: flex;
-        flex-direction: column;
-        gap: 16px;
-    }
+.wiki-name {
+    font-family: var(--serif);
+    font-size: 1.25rem;
+    color: #202122;
+}
 
+.wiki-name span {
+    color: var(--text-soft);
+}
+
+.wiki-tabs {
+    display: flex;
+    gap: 2px;
+    font-size: 0.82rem;
+    align-self: flex-end;
+}
+
+.wiki-tabs a {
+    padding: 7px 12px;
+    color: var(--link);
+    border: 1px solid transparent;
+    border-bottom: none;
+    border-radius: 2px 2px 0 0;
+}
+
+.wiki-tabs a:hover {
+    background: #f8f9fa;
+    text-decoration: none;
+}
+
+.wiki-tabs a.active {
+    color: #202122;
+    background: var(--content-bg);
+    border-color: var(--border-soft);
+    font-weight: 600;
+    margin-bottom: -1px;
+}
+
+/* ---------- Content ---------- */
+.wiki-content {
+    padding: 18px 28px 36px;
+}
+
+#firstHeading {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: 1.9rem;
+    line-height: 1.3;
+    margin: 0;
+}
+
+.wiki-tagline {
+    font-size: 0.8rem;
+    color: var(--text-soft);
+    margin: 2px 0 4px;
+}
+
+.wiki-rule {
+    height: 1px;
+    background: var(--rule);
+    margin-bottom: 14px;
+}
+
+p {
+    margin: 0 0 12px;
+}
+
+b,
+strong {
+    font-weight: 700;
+}
+
+.hatnote {
+    font-size: 0.92rem;
+    color: var(--text-soft);
+    background: #f8f9fa;
+    border: 1px solid #eaecf0;
+    border-left: 4px solid var(--border);
+    padding: 8px 12px;
+    margin-bottom: 16px;
+}
+
+.muted {
+    color: var(--text-soft);
+    font-size: 0.9em;
+}
+
+/* ---------- Headings ---------- */
+h2 {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: 1.5rem;
+    margin: 24px 0 10px;
+    padding-bottom: 4px;
+    border-bottom: 1px solid var(--rule);
+    clear: none;
+}
+
+h3 {
+    font-family: var(--serif);
+    font-weight: 700;
+    font-size: 1.18rem;
+    margin: 18px 0 8px;
+}
+
+.editsection {
+    font-family: var(--sans);
+    font-size: 0.78rem;
+    font-weight: 400;
+    color: var(--text-soft);
+    margin-left: 8px;
+}
+
+.editsection a {
+    color: var(--link);
+}
+
+/* ---------- Citations / references ---------- */
+sup.ref {
+    font-size: 0.72em;
+    line-height: 1;
+    white-space: nowrap;
+}
+
+sup.ref a {
+    color: var(--link);
+}
+
+.readmore {
+    font-size: 0.95rem;
+}
+
+.references {
+    font-size: 0.88rem;
+    color: var(--text-soft);
+    padding-left: 26px;
+    margin-top: 6px;
+}
+
+.references li {
+    margin-bottom: 6px;
+    padding-left: 2px;
+}
+
+.references li:target {
+    background: #fdf2c8;
+}
+
+/* ---------- Lists ---------- */
+ul.plain-list {
+    margin: 0 0 12px;
+    padding-left: 24px;
+}
+
+ul.plain-list li {
+    margin-bottom: 7px;
+}
+
+/* ---------- Infobox ---------- */
+.infobox {
+    float: right;
+    clear: right;
+    width: 300px;
+    margin: 4px 0 16px 22px;
+    border: 1px solid var(--border);
+    background: var(--infobox-bg);
+    border-collapse: collapse;
+    font-size: 0.86rem;
+    line-height: 1.45;
+}
+
+.infobox-title {
+    font-family: var(--serif);
+    font-size: 1.15rem;
+    font-weight: 700;
+    text-align: center;
+    padding: 9px 10px;
+    background: var(--infobox-head);
+    border-bottom: 1px solid var(--border);
+}
+
+.infobox-image {
+    text-align: center;
+    padding: 10px 10px 8px !important;
+    border-top: none !important;
+}
+
+.infobox-image img {
+    display: block;
+    width: 100%;
+    max-width: 230px;
+    height: auto;
+    margin: 0 auto;
+    border: 1px solid var(--border-soft);
+    border-radius: 2px;
+}
+
+.infobox-caption {
+    font-size: 0.8rem;
+    color: var(--text-soft);
+    margin-top: 6px;
+    line-height: 1.4;
+}
+
+.infobox-subheader {
+    text-align: center;
+    font-weight: 700;
+    background: #eaecf0;
+    padding: 5px 10px;
+    color: var(--text);
+}
+
+.infobox th,
+.infobox td {
+    padding: 6px 10px;
+    vertical-align: top;
+    border-top: 1px solid #eaecf0;
+}
+
+.infobox th[scope="row"] {
+    text-align: left;
+    width: 36%;
+    color: var(--text);
+    font-weight: 700;
+}
+
+/* ---------- Tables (wikitable) ---------- */
+.wikitable {
+    border-collapse: collapse;
+    border: 1px solid var(--border-soft);
+    margin: 6px 0 16px;
+    width: 100%;
+    max-width: 560px;
+    font-size: 0.92rem;
+    background: #fff;
+}
+
+.wikitable th,
+.wikitable td {
+    border: 1px solid var(--border-soft);
+    padding: 7px 11px;
+    text-align: left;
+    vertical-align: middle;
+}
+
+.wikitable thead th {
+    background: var(--table-head);
+    font-weight: 700;
+}
+
+.wikitable tbody tr:nth-child(even) {
+    background: var(--table-stripe);
+}
+
+.org {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+}
+
+.org img {
+    width: 18px;
+    height: 18px;
+    object-fit: contain;
+    border-radius: 2px;
+    font-size: 0;
+}
+
+/* ---------- Table of contents ---------- */
+.toc {
+    display: table;
+    background: #f8f9fa;
+    border: 1px solid var(--border-soft);
+    padding: 10px 16px 12px;
+    margin: 4px 0 18px;
+    font-size: 0.92rem;
+    clear: left;
+}
+
+.toc-title {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    font-weight: 700;
+    margin-bottom: 6px;
+}
+
+#toc-toggle {
+    background: none;
+    border: none;
+    color: var(--link);
+    cursor: pointer;
+    font-size: 0.85rem;
+    font-family: inherit;
+    padding: 0;
+}
+
+#toc-toggle:hover {
+    text-decoration: underline;
+}
+
+.toc-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.toc-list ol {
+    list-style: none;
+    margin: 0;
+    padding-left: 22px;
+}
+
+.toc-list li {
+    margin: 3px 0;
+}
+
+.toc-num {
+    color: var(--text-soft);
+    margin-right: 6px;
+    font-variant-numeric: tabular-nums;
+}
+
+.toc.collapsed .toc-list {
+    display: none;
+}
+
+/* ---------- Footer ---------- */
+.wiki-footer {
+    border-top: 1px solid var(--border-soft);
+    padding: 16px 28px 28px;
+    font-size: 0.8rem;
+    color: var(--text-soft);
+}
+
+.wiki-footer p {
+    margin: 0 0 4px;
+}
+
+/* ---------- Mobile ---------- */
+@media (max-width: 720px) {
     body {
-        padding: 16px;
-        align-items: flex-start;
-        /* Allow scrolling from top */
+        font-size: 15px;
     }
 
-    .card {
-        padding: 20px;
+    .wiki {
+        border: none;
     }
 
-    h1 {
-        font-size: 2rem;
+    .wiki-topbar {
+        padding: 8px 14px 0;
+        gap: 8px;
     }
 
-    .big-number {
-        font-size: 2.5rem;
+    .wiki-brand {
+        padding-bottom: 6px;
     }
 
-    /* Make Hall of Fame 2x2 on mobile */
-    .hof-grid {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 12px;
+    .wiki-tabs {
+        order: 3;
+        width: 100%;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        flex-wrap: nowrap;
+        align-self: stretch;
     }
 
-    .brand-pill {
-        justify-content: center;
-        /* Center content in pill */
-        padding: 12px;
+    .wiki-tabs a {
+        white-space: nowrap;
     }
 
-    /* Adjust skills gap */
-    .card-profile div[style*="display: flex"] {
-        gap: 6px;
+    .lang-switch {
+        margin-left: auto;
     }
 
-    /* Ensure background helps readability on small screens */
-    #bg-canvas {
-        opacity: 0.6;
+    .wiki-content {
+        padding: 14px 16px 24px;
+    }
+
+    .infobox {
+        float: none;
+        width: 100%;
+        max-width: 360px;
+        margin: 0 auto 18px;
+    }
+
+    .infobox-image img {
+        max-width: 200px;
+    }
+
+    .wikitable {
+        max-width: 100%;
+        font-size: 0.88rem;
+    }
+
+    .wikitable th,
+    .wikitable td {
+        padding: 6px 8px;
+    }
+
+    #firstHeading {
+        font-size: 1.6rem;
+    }
+
+    h2 {
+        font-size: 1.32rem;
+    }
+
+    h3 {
+        font-size: 1.08rem;
+    }
+
+    .toc {
+        display: block;
+        width: 100%;
+    }
+}
+
+@media (max-width: 420px) {
+    .wiki-content {
+        padding: 12px 12px 22px;
+    }
+
+    .wiki-name {
+        font-size: 1.1rem;
+    }
+
+    #firstHeading {
+        font-size: 1.4rem;
+    }
+
+    .editsection {
+        display: none;
+    }
+
+    .org img {
+        width: 16px;
+        height: 16px;
     }
 }

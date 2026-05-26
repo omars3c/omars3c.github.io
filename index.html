@@ -5,16 +5,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Omar Alikhanov - Security Engineer.">
+    <meta name="theme-color" content="#ffffff">
     <!-- Social Media Meta Tags -->
     <meta property="og:title" content="Omar Alikhanov | Cyber Security Engineer & Founder">
     <meta property="og:description" content="Hacked Fortune 500 at 18. Founder of tmeet. AI Security Researcher.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://omaralikhanov.com">
-    <meta property="og:image" content="https://omaralikhanov.com/photos/profile.jpg">
+    <meta property="og:image" content="https://omaralikhanov.com/hello.jpg">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Omar Alikhanov | @omars3c">
 
-    <title>Omar Alikhanov | Security Engineer</title>
+    <title>Omar Alikhanov - Security Wiki</title>
     <link rel="stylesheet" href="style.css">
 
     <!-- JSON-LD Schema -->
@@ -24,209 +25,437 @@
       "@graph": [
         {
           "@type": "Person",
-          "@id": "https://alikhanov.com",
+          "@id": "https://omaralikhanov.com/#person",
           "name": "Omar Alikhanov",
-          "jobTitle": "Cyber Security Engineer",
           "alternateName": "@omars3c",
-          "url": "https://alikhanov.com",
-          "description": "Cybersecurity expert who legally breached a Fortune 500 company. Recognized by OpenAI, CERT-EU, and Grammarly.",
-          "knowsAbout": ["AI Security", "Pentesting", "Infrastructure Defense", "Red Teaming"],
-          "award": ["OpenAI Hall of Fame", "CERT-EU Hall of Fame", "1st Place Secure Tomorrow Hackathon", "9th Place out of 100 teams - Central Asian University CTF, Uzbekistan"]
+          "url": "https://omaralikhanov.com",
+          "image": "https://omaralikhanov.com/hello.jpg",
+          "email": "contact@omars3c.com",
+          "jobTitle": "Cyber Security Engineer",
+          "description": "Omar Alikhanov (@omars3c) is a cyber security engineer at MEGASEC LLC and the founder of tmeet. At 18 he legally breached a Fortune 500 company in 48 hours. Recognized by OpenAI, CERT-EU, Grammarly, and Canva.",
+          "knowsAbout": ["AI Security", "Penetration Testing", "Red Teaming", "Exploit Development", "Incident Response", "Active Directory"],
+          "award": [
+            "OpenAI Hall of Fame",
+            "CERT-EU Hall of Fame",
+            "Grammarly Responsible Disclosure",
+            "Canva Security Acknowledgement",
+            "1st Place Secure Tomorrow Hackathon (AKM & IDDA)",
+            "9th Place out of 100 teams - Central Asian University CTF, Uzbekistan"
+          ],
+          "hasCredential": {
+            "@type": "EducationalOccupationalCredential",
+            "credentialCategory": "certification",
+            "name": "eCPPTv3",
+            "url": "https://certs.ine.com/cacc7da8-79fd-4464-9bf8-fd72da80db27"
+          },
+          "worksFor": { "@id": "https://omaralikhanov.com/#megasec" },
+          "sameAs": [
+            "https://linkedin.com/in/omars3c",
+            "https://medium.com/@omars3c"
+          ]
         },
         {
           "@type": "Organization",
+          "@id": "https://omaralikhanov.com/#megasec",
+          "name": "MEGASEC LLC",
+          "employee": { "@id": "https://omaralikhanov.com/#person" }
+        },
+        {
+          "@type": "Organization",
+          "@id": "https://omaralikhanov.com/#tmeet",
           "name": "tmeet",
-          "founder": { "@id": "https://alikhanov.com" },
-          "description": "Full-cycle AI platform for HR industry with a custom sandbox for developer interviews, more than 12 engineers from fintech and banking",
-          "employee": { "@id": "https://alikhanov.com" }
+          "description": "Full-cycle AI platform for the HR industry with a custom sandbox for developer interviews, built by more than 12 engineers from fintech and banking.",
+          "founder": { "@id": "https://omaralikhanov.com/#person" }
         }
       ]
     }
     </script>
 </head>
 
-<body>
-    <!-- Interactive Background Canvas -->
-    <canvas id="bg-canvas"></canvas>
+<body data-lang="en">
+    <div class="wiki">
 
-    <div class="bento-grid">
-
-        <!-- CARD 1: HERO IDENTITY (2x2) -->
-        <article class="card card-profile">
-            <div class="status-badge">
-                <span class="status-dot"></span>
-                <span>Available for Review</span>
+        <!-- Top utility bar -->
+        <div class="wiki-topbar">
+            <div class="wiki-brand">
+                <span class="wiki-logo">W</span>
+                <span class="wiki-name">Security<span>Wiki</span></span>
             </div>
-            <div>
-                <h1>Omar Alikhanov</h1>
-                <p style="font-size: 1.1rem; color: #bbb;">
-                    Cyber Security Engineer at <strong>MEGASEC LLC</strong> & <br>
-                    Founder of <strong>tmeet</strong> (12+ Engineers).
-                </p>
-                <div style="margin-top: 12px; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 12px;">
-                    <p style="font-size: 0.8rem; color: #888; margin-bottom: 4px; font-weight: 500;">Interesting fact
-                        about me:</p>
-                    <p style="font-size: 0.75rem; color: #666; line-height: 1.4;">
-                        I wrote my first application at age 9. By 11, I was dissecting njRAT variants to understand the
-                        mechanics of compromise.
-                    </p>
+            <nav class="wiki-tabs" aria-label="Page tabs">
+                <a class="active" href="#top"><span data-lang="en">Article</span><span data-lang="ru">Статья</span></a>
+                <a href="#"><span data-lang="en">Talk</span><span data-lang="ru">Обсуждение</span></a>
+                <a href="https://medium.com/@omars3c" target="_blank" rel="noopener"><span data-lang="en">View
+                        source</span><span data-lang="ru">Источник</span></a>
+                <a href="#references"><span data-lang="en">History</span><span data-lang="ru">История</span></a>
+            </nav>
+            <div class="lang-switch" role="group" aria-label="Language">
+                <button type="button" data-setlang="en" class="active">EN</button>
+                <button type="button" data-setlang="ru">RU</button>
+            </div>
+        </div>
+
+        <main class="wiki-content" id="top">
+
+            <h1 id="firstHeading"><span data-lang="en">Omar Alikhanov</span><span data-lang="ru">Омар Алиханов</span>
+            </h1>
+            <div class="wiki-tagline">
+                <span data-lang="en">From the Security Wiki, the free encyclopedia</span>
+                <span data-lang="ru">Из Security Wiki, свободной энциклопедии</span>
+            </div>
+            <div class="wiki-rule"></div>
+
+            <p class="hatnote">
+                <i>
+                    <span data-lang="en">This is a personal portfolio presented as an encyclopedia article.</span>
+                    <span data-lang="ru">Это личное портфолио в формате энциклопедической статьи.</span>
+                </i>
+            </p>
+
+            <!-- INFOBOX -->
+            <table class="infobox" aria-label="Infobox">
+                <caption class="infobox-title">
+                    <span data-lang="en">Omar Alikhanov</span><span data-lang="ru">Омар Алиханов</span>
+                </caption>
+                <tbody>
+                    <tr>
+                        <td class="infobox-image" colspan="2">
+                            <img src="hello.jpg" alt="Omar Alikhanov"
+                                onerror="this.closest('.infobox-image').style.display='none'">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="infobox-subheader" colspan="2">@omars3c</td>
+                    </tr>
+                    <tr>
+                        <th scope="row"><span data-lang="en">Occupation</span><span data-lang="ru">Род занятий</span>
+                        </th>
+                        <td><span data-lang="en">Cyber security engineer</span><span data-lang="ru">Инженер по
+                                кибербезопасности</span></td>
+                    </tr>
+                    <tr>
+                        <th scope="row"><span data-lang="en">Employer</span><span data-lang="ru">Работодатель</span></th>
+                        <td>MEGASEC&nbsp;LLC</td>
+                    </tr>
+                    <tr>
+                        <th scope="row"><span data-lang="en">Founder of</span><span data-lang="ru">Основатель</span>
+                        </th>
+                        <td><a href="#career">tmeet</a>
+                            <span data-lang="en">(12+&nbsp;engineers)</span>
+                            <span data-lang="ru">(12+&nbsp;инженеров)</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row"><span data-lang="en">Known&nbsp;for</span><span data-lang="ru">Известен</span>
+                        </th>
+                        <td>
+                            <span data-lang="en">Legally breaching a Fortune&nbsp;500 company in 48&nbsp;hours</span>
+                            <span data-lang="ru">Легальным взломом компании из Fortune&nbsp;500 за 48&nbsp;часов</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row"><span data-lang="en">Fields</span><span data-lang="ru">Сфера</span></th>
+                        <td>
+                            <span data-lang="en">AI security, pentesting, red teaming, exploit development</span>
+                            <span data-lang="ru">Безопасность ИИ, пентест, red team, разработка эксплойтов</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row"><span data-lang="en">Certifications</span><span
+                                data-lang="ru">Сертификаты</span></th>
+                        <td>eCPPTv3; OSCP+ <span class="muted"><span data-lang="en">(in progress)</span><span
+                                    data-lang="ru">(в процессе)</span></span></td>
+                    </tr>
+                    <tr>
+                        <td class="infobox-subheader" colspan="2"><span data-lang="en">Online presence</span><span
+                                data-lang="ru">Профили</span></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">LinkedIn</th>
+                        <td><a href="https://linkedin.com/in/omars3c" target="_blank" rel="noopener">in/omars3c</a></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Medium</th>
+                        <td><a href="https://medium.com/@omars3c" target="_blank" rel="noopener">@omars3c</a></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Email</th>
+                        <td><a href="mailto:contact@omars3c.com">contact@omars3c.com</a></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- LEAD -->
+            <p data-lang="en">
+                <b>Omar Alikhanov</b>, known online as <b>@omars3c</b>, is a cyber security engineer and entrepreneur.
+                He works as a Cyber Security Engineer at <b>MEGASEC&nbsp;LLC</b> and founded <a href="#career">tmeet</a>,
+                a full-cycle AI platform for the HR industry built by a team of more than twelve engineers from fintech
+                and banking.<sup class="ref"><a href="#cite-1">[1]</a></sup>
+            </p>
+            <p data-lang="ru">
+                <b>Омар Алиханов</b> (в сети известен как <b>@omars3c</b>) работает инженером по кибербезопасности и
+                занимается предпринимательством. Он инженер по кибербезопасности в <b>MEGASEC&nbsp;LLC</b> и основатель
+                <a href="#career">tmeet</a>, AI-платформы полного цикла для HR-индустрии, которую создаёт команда из более
+                чем двенадцати инженеров из финтеха и банковской сферы.<sup class="ref"><a href="#cite-1">[1]</a></sup>
+            </p>
+            <p data-lang="en">
+                At 18 he legally breached the network of a Fortune&nbsp;500 company in under 48&nbsp;hours and reached
+                data affecting around 30&nbsp;million users.<sup class="ref"><a href="#cite-2">[2]</a></sup> His research
+                has been acknowledged by OpenAI, CERT-EU, Grammarly and Canva.<sup class="ref"><a
+                        href="#cite-3">[3]</a></sup>
+            </p>
+            <p data-lang="ru">
+                В 18 лет он легально проник в сеть компании из списка Fortune&nbsp;500 меньше чем за 48&nbsp;часов и
+                получил доступ к данным примерно 30&nbsp;миллионов пользователей.<sup class="ref"><a
+                        href="#cite-2">[2]</a></sup> Его исследования отмечены OpenAI, CERT-EU, Grammarly и Canva.<sup
+                    class="ref"><a href="#cite-3">[3]</a></sup>
+            </p>
+
+            <!-- TABLE OF CONTENTS -->
+            <div class="toc" id="toc" role="navigation" aria-label="Contents">
+                <div class="toc-title">
+                    <span data-lang="en">Contents</span><span data-lang="ru">Содержание</span>
+                    <button id="toc-toggle" type="button" aria-expanded="true">[hide]</button>
                 </div>
+                <ol class="toc-list">
+                    <li><a href="#early-life"><span class="toc-num">1</span> <span data-lang="en">Early life and
+                                background</span><span data-lang="ru">Детство и начало пути</span></a></li>
+                    <li><a href="#career"><span class="toc-num">2</span> <span data-lang="en">Career</span><span
+                                data-lang="ru">Карьера</span></a>
+                        <ol>
+                            <li><a href="#megasec-tmeet"><span class="toc-num">2.1</span> <span data-lang="en">MEGASEC
+                                        and tmeet</span><span data-lang="ru">MEGASEC и tmeet</span></a></li>
+                            <li><a href="#gov-academic"><span class="toc-num">2.2</span> <span
+                                        data-lang="en">Government and academic work</span><span
+                                        data-lang="ru">Государственные и академические проекты</span></a></li>
+                            <li><a href="#incident"><span class="toc-num">2.3</span> <span data-lang="en">Incident
+                                        response</span><span data-lang="ru">Реагирование на инцидент</span></a></li>
+                        </ol>
+                    </li>
+                    <li><a href="#fortune500"><span class="toc-num">3</span> <span data-lang="en">The Fortune 500
+                                breach</span><span data-lang="ru">Взлом компании Fortune 500</span></a></li>
+                    <li><a href="#recognition"><span class="toc-num">4</span> <span
+                                data-lang="en">Recognition</span><span data-lang="ru">Признание</span></a></li>
+                    <li><a href="#competitive"><span class="toc-num">5</span> <span data-lang="en">Competitive
+                                results</span><span data-lang="ru">Соревновательные результаты</span></a></li>
+                    <li><a href="#personal"><span class="toc-num">6</span> <span data-lang="en">Personal life</span><span
+                                data-lang="ru">Личная жизнь</span></a></li>
+                    <li><a href="#certifications"><span class="toc-num">7</span> <span
+                                data-lang="en">Certifications</span><span data-lang="ru">Сертификаты</span></a></li>
+                    <li><a href="#references"><span class="toc-num">8</span> <span
+                                data-lang="en">References</span><span data-lang="ru">Примечания</span></a></li>
+                </ol>
             </div>
-            <div style="margin-top: 1.5rem;">
-                <p style="font-size: 0.9rem; margin-bottom: 0.5rem; color: #666;">Skills</p>
-                <div style="display: flex; gap: 6px; flex-wrap: wrap;">
-                    <span
-                        style="background: rgba(255,255,255,0.05); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #ccc;">Java</span>
-                    <span
-                        style="background: rgba(255,255,255,0.05); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #ccc;">JS</span>
-                    <span
-                        style="background: rgba(255,255,255,0.05); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #ccc;">Python</span>
-                    <span
-                        style="background: rgba(255,255,255,0.05); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #ccc;">.NET</span>
-                    <span
-                        style="background: rgba(255,255,255,0.05); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #ccc;">White-Box
-                        Code Review</span>
-                    <span
-                        style="background: rgba(255,255,255,0.05); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #ccc;">Web
-                        App Pentesting</span>
-                    <span
-                        style="background: rgba(255,255,255,0.05); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #ccc;">Source
-                        Code Analysis</span>
-                    <span
-                        style="background: rgba(255,255,255,0.05); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #ccc;">Active
-                        Directory</span>
-                    <span
-                        style="background: rgba(255,255,255,0.05); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #ccc;">Network
-                        Pentesting</span>
-                    <span
-                        style="background: rgba(255,255,255,0.05); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #ccc;">Exploit
-                        Dev</span>
-                    <span
-                        style="background: rgba(255,255,255,0.05); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #ccc;">Privilege
-                        Escalation</span>
-                    <span
-                        style="background: rgba(255,255,255,0.05); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #ccc;">Pivoting</span>
-                    <span
-                        style="background: rgba(255,255,255,0.05); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #ccc;">Manual
-                        Exploitation</span>
-                    <span
-                        style="background: rgba(255,255,255,0.05); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #ccc;">Post-Exploitation</span>
-                    <span
-                        style="background: rgba(255,255,255,0.05); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #ccc;">Vuln
-                        Research</span>
-                    <span
-                        style="background: rgba(255,255,255,0.05); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #ccc;">WAF
-                        Bypass</span>
-                    <span
-                        style="background: rgba(255,255,255,0.05); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #ccc;">Recon</span>
-                </div>
-            </div>
-        </article>
 
-        <!-- CARD 2: THE "BIG FLEX" (2x1) -->
-        <article class="card card-story">
-            <h3>CAREER HIGHLIGHT</h3>
-            <div style="margin-top: auto;">
-                <div class="big-number">48H</div>
-                <h2 style="font-size: 1.25rem; font-weight: 500;">To Hack a Fortune 500</h2>
-                <p style="max-width: 32ch;">
-                    Legally breached enterprise networks at age 18, securing data for <strong>30 Million users</strong>.
-                </p>
+            <!-- SECTIONS -->
+            <h2 id="early-life"><span data-lang="en">Early life and background</span><span data-lang="ru">Детство и
+                    начало пути</span> <span class="editsection">[<a href="#top">edit</a>]</span></h2>
+            <p data-lang="en">
+                Alikhanov began programming as a child and wrote his first application at the age of nine. By eleven he
+                was taking apart variants of the njRAT remote access trojan to understand how intrusions work. That early
+                interest pushed him toward offensive security.
+            </p>
+            <p data-lang="ru">
+                Алиханов начал программировать в детстве и написал своё первое приложение в девять лет. К одиннадцати
+                годам он разбирал варианты трояна удалённого доступа njRAT, чтобы понять, как устроены атаки. Этот ранний
+                интерес привёл его в наступательную безопасность.
+            </p>
+
+            <h2 id="career"><span data-lang="en">Career</span><span data-lang="ru">Карьера</span> <span
+                    class="editsection">[<a href="#top">edit</a>]</span></h2>
+
+            <h3 id="megasec-tmeet"><span data-lang="en">MEGASEC and tmeet</span><span data-lang="ru">MEGASEC и
+                    tmeet</span> <span class="editsection">[<a href="#top">edit</a>]</span></h3>
+            <p data-lang="en">
+                Alikhanov works as a Cyber Security Engineer at MEGASEC&nbsp;LLC. He also founded <b>tmeet</b>, a
+                full-cycle AI platform for the HR industry that includes a custom sandbox for developer interviews. The
+                company employs more than twelve engineers with backgrounds in fintech and banking.<sup class="ref"><a
+                        href="#cite-1">[1]</a></sup>
+            </p>
+            <p data-lang="ru">
+                Алиханов работает инженером по кибербезопасности в MEGASEC&nbsp;LLC. Он также основал <b>tmeet</b>,
+                AI-платформу полного цикла для HR-индустрии с собственной песочницей для технических собеседований. В
+                компании работают более двенадцати инженеров с опытом в финтехе и банках.<sup class="ref"><a
+                        href="#cite-1">[1]</a></sup>
+            </p>
+
+            <h3 id="gov-academic"><span data-lang="en">Government and academic work</span><span
+                    data-lang="ru">Государственные и академические проекты</span> <span class="editsection">[<a
+                        href="#top">edit</a>]</span></h3>
+            <p data-lang="en">
+                A government agency selected Alikhanov to integrate a proprietary cybersecurity product into a joint
+                project. He has also been invited to teach a cybersecurity course to first-year university students. At
+                18 he was referred by an Oracle security engineer with five years of experience for a low-level
+                programming student internship interview.
+            </p>
+            <p data-lang="ru">
+                Государственное агентство выбрало Алиханова для интеграции собственного продукта по кибербезопасности в
+                совместный проект. Его также приглашали преподавать курс по кибербезопасности студентам первого курса. В
+                18 лет инженер по безопасности из Oracle с пятью годами опыта дал ему рекомендацию на собеседование на
+                студенческую стажировку по низкоуровневому программированию.
+            </p>
+
+            <h3 id="incident"><span data-lang="en">Incident response</span><span data-lang="ru">Реагирование на
+                    инцидент</span> <span class="editsection">[<a href="#top">edit</a>]</span></h3>
+            <p data-lang="en">
+                Alikhanov investigated a major cyber incident at a university, where a sophisticated threat group had
+                breached the network. He identified the vulnerability the attackers had used.
+            </p>
+            <p data-lang="ru">
+                Алиханов расследовал крупный киберинцидент в университете, где сеть взломала продвинутая хакерская
+                группировка. Он определил уязвимость, которую использовали атакующие.
+            </p>
+
+            <h2 id="fortune500"><span data-lang="en">The Fortune 500 breach</span><span data-lang="ru">Взлом компании
+                    Fortune 500</span> <span class="editsection">[<a href="#top">edit</a>]</span></h2>
+            <p data-lang="en">
+                At 18, Alikhanov ran an authorised security assessment against a Fortune&nbsp;500 company and got into
+                its network in under 48&nbsp;hours. The work covered data belonging to about 30&nbsp;million users. He
+                later published a detailed write-up of how he did it.<sup class="ref"><a href="#cite-2">[2]</a></sup>
+            </p>
+            <p data-lang="ru">
+                В 18 лет Алиханов провёл авторизованную проверку безопасности компании из Fortune&nbsp;500 и попал в её
+                сеть меньше чем за 48&nbsp;часов. Работа затронула данные около 30&nbsp;миллионов пользователей. Позже он
+                опубликовал подробный разбор того, как это сделал.<sup class="ref"><a href="#cite-2">[2]</a></sup>
+            </p>
+            <p class="readmore">
                 <a href="https://medium.com/@omars3c/how-i-hacked-a-fortune-500-company-in-48-hours-and-got-data-on-30-000-000-users-035c8723be96"
-                    target="_blank" class="read-btn" rel="noopener" aria-label="Read the full story on Medium">
-                    Read Story
-                    <svg class="arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <line x1="5" y1="12" x2="19" y2="12"></line>
-                        <polyline points="12 5 19 12 12 19"></polyline>
-                    </svg>
+                    target="_blank" rel="noopener">
+                    <span data-lang="en">&rarr; Read the full write-up on Medium</span>
+                    <span data-lang="ru">&rarr; Читать полный разбор на Medium</span>
                 </a>
-            </div>
-        </article>
+            </p>
 
-        <!-- CARD 3: COMPETITIVE STATS (1x1) -->
-        <article class="card card-roles">
-            <h3>COMPETITIVE</h3>
-            <div style="margin-top: 8px;">
-                <div style="margin-bottom: 12px;">
-                    <span style="display: block; color: #fff; font-weight: 600;">1st Place</span>
-                    <strong style="font-size: 0.8rem; font-weight: normal;">Secure Tomorrow (AKM & IDDA)</strong>
-                </div>
-                <div style="margin-bottom: 12px;">
-                    <span style="display: block; color: #fff; font-weight: 600;">9th Place out of 100 teams</span>
-                    <strong style="font-size: 0.8rem; font-weight: normal;">Central Asian University CTF, Uzbekistan</strong>
-                </div>
-                <div style="margin-bottom: 12px;">
-                    <span style="display: block; color: #fff; font-weight: 600;">Rank #21</span>
-                    <strong style="font-size: 0.8rem; font-weight: normal;">CIDC 2025 (DTX & XRITDX)</strong>
-                </div>
-                <div>
-                    <span style="display: block; color: #fff; font-weight: 600;">#89 out of 606 Teams</span>
-                    <strong style="font-size: 0.8rem; font-weight: normal;">OpenAI Red Teaming</strong>
-                </div>
-            </div>
-        </article>
+            <h2 id="recognition"><span data-lang="en">Recognition</span><span data-lang="ru">Признание</span> <span
+                    class="editsection">[<a href="#top">edit</a>]</span></h2>
+            <p data-lang="en">
+                Several organisations have acknowledged Alikhanov for responsible disclosure and security research:
+            </p>
+            <p data-lang="ru">
+                Несколько организаций отметили Алиханова за ответственное раскрытие уязвимостей и исследования
+                безопасности:
+            </p>
+            <table class="wikitable">
+                <thead>
+                    <tr>
+                        <th><span data-lang="en">Organisation</span><span data-lang="ru">Организация</span></th>
+                        <th><span data-lang="en">Recognition</span><span data-lang="ru">Признание</span></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><span class="org"><img src="Снимок%20экрана%202026-02-04%20211953.png" alt="">OpenAI</span>
+                        </td>
+                        <td><span data-lang="en">Hall of Fame</span><span data-lang="ru">Зал славы</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="org"><img src="flag-for-flag-european-union.svg" alt="">CERT-EU</span></td>
+                        <td><span data-lang="en">Hall of Fame</span><span data-lang="ru">Зал славы</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="org"><img src="grammarly_logo.jpg" alt="">Grammarly</span></td>
+                        <td><span data-lang="en">Responsible disclosure</span><span data-lang="ru">Ответственное
+                                раскрытие</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="org"><img src="cib-canva.png" alt="">Canva</span></td>
+                        <td><span data-lang="en">Security acknowledgement</span><span data-lang="ru">Благодарность за
+                                безопасность</span></td>
+                    </tr>
+                </tbody>
+            </table>
 
-        <!-- CARD 4: SOCIALS (1x1) -->
-        <article class="card card-socials">
-            <h3>CONNECT</h3>
-            <a href="https://linkedin.com/in/omars3c" target="_blank" class="social-link" rel="noopener">
-                <span>LinkedIn</span>
-                <span>↗</span>
-            </a>
-            <a href="https://medium.com/@omars3c" target="_blank" class="social-link" rel="noopener">
-                <span>Medium</span>
-                <span>↗</span>
-            </a>
-            <a href="mailto:contact@omars3c.com" class="social-link">
-                <span>Email</span>
-                <span>@</span>
-            </a>
+            <h2 id="competitive"><span data-lang="en">Competitive results</span><span data-lang="ru">Соревновательные
+                    результаты</span> <span class="editsection">[<a href="#top">edit</a>]</span></h2>
+            <table class="wikitable">
+                <thead>
+                    <tr>
+                        <th><span data-lang="en">Event</span><span data-lang="ru">Событие</span></th>
+                        <th><span data-lang="en">Result</span><span data-lang="ru">Результат</span></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Secure Tomorrow (AKM &amp; IDDA)</td>
+                        <td><b><span data-lang="en">1st place</span><span data-lang="ru">1-е место</span></b></td>
+                    </tr>
+                    <tr>
+                        <td>Central Asian University CTF, Uzbekistan</td>
+                        <td><span data-lang="en">9th of 100 teams</span><span data-lang="ru">9-е из 100 команд</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>CIDC 2025 (DTX &amp; XRITDX)</td>
+                        <td><span data-lang="en">Rank #21</span><span data-lang="ru">Место #21</span></td>
+                    </tr>
+                    <tr>
+                        <td>OpenAI Red Teaming</td>
+                        <td><span data-lang="en">#89 of 606 teams</span><span data-lang="ru">#89 из 606 команд</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
 
-            <!-- Certification Badge -->
-            <div class="cert-wrapper">
-                <a href="https://certs.ine.com/cacc7da8-79fd-4464-9bf8-fd72da80db27" target="_blank" class="cert-badge"
-                    rel="noopener" aria-label="Verify eCPPTv3 Certification">
-                    <div class="cert-info">
-                        <h4>eCPPTv3 Certified</h4>
-                    </div>
-                    <div class="cert-action">
-                        Verify
-                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-                            <polyline points="20 6 9 17 4 12"></polyline>
-                        </svg>
-                    </div>
-                </a>
-            </div>
-        </article>
+            <h2 id="personal"><span data-lang="en">Personal life</span><span data-lang="ru">Личная жизнь</span> <span
+                    class="editsection">[<a href="#top">edit</a>]</span></h2>
+            <p data-lang="en">
+                Away from work, Alikhanov plays competitive chess and reached a peak rating of 2300&nbsp;Elo in Blitz on
+                Chess.com. He is a former semi-professional <i>Valorant</i> player and a former semi-professional boxer.
+            </p>
+            <p data-lang="ru">
+                Вне работы Алиханов играет в шахматы и достиг пикового рейтинга 2300&nbsp;Elo в блице на Chess.com. Он
+                бывший полупрофессиональный игрок в <i>Valorant</i> и бывший полупрофессиональный боксёр.
+            </p>
 
-        <!-- CARD 5: HALL OF FAME (4x1) -->
-        <article class="card card-hof">
-            <h3>INDUSTRY RECOGNITION</h3>
-            <div class="hof-grid">
-                <!-- OpenAI -->
-                <div class="brand-pill" aria-label="OpenAI Hall of Fame">
-                    <img src="Снимок%20экрана%202026-02-04%20211953.png" alt="OpenAI">
-                    <span>OpenAI</span>
-                </div>
-                <!-- CERT-EU -->
-                <div class="brand-pill" aria-label="CERT-EU Recognition">
-                    <img src="flag-for-flag-european-union.svg" alt="CERT-EU">
-                    <span>CERT-EU</span>
-                </div>
-                <!-- Grammarly -->
-                <div class="brand-pill" aria-label="Grammarly Responsible Disclosure">
-                    <img src="grammarly_logo.jpg" alt="Grammarly">
-                    <span>Grammarly</span>
-                </div>
-                <!-- Canva -->
-                <div class="brand-pill" aria-label="Canva Security Acknowledgement">
-                    <img src="cib-canva.png" alt="Canva">
-                    <span>Canva</span>
-                </div>
-            </div>
-        </article>
+            <h2 id="certifications"><span data-lang="en">Certifications</span><span data-lang="ru">Сертификаты</span>
+                <span class="editsection">[<a href="#top">edit</a>]</span></h2>
+            <ul class="plain-list">
+                <li>
+                    <span data-lang="en"><b>eCPPTv3</b>, the eLearnSecurity Certified Professional Penetration Tester.
+                        <a href="https://certs.ine.com/cacc7da8-79fd-4464-9bf8-fd72da80db27" target="_blank"
+                            rel="noopener">Verify</a></span>
+                    <span data-lang="ru"><b>eCPPTv3</b>, сертификат eLearnSecurity Certified Professional Penetration
+                        Tester.
+                        <a href="https://certs.ine.com/cacc7da8-79fd-4464-9bf8-fd72da80db27" target="_blank"
+                            rel="noopener">Проверить</a></span>
+                    <sup class="ref"><a href="#cite-4">[4]</a></sup>
+                </li>
+                <li>
+                    <span data-lang="en"><b>OSCP+</b>. He is studying the PEN-200 course toward the Offensive Security
+                        Certified Professional certification. <span class="muted">(in progress)</span></span>
+                    <span data-lang="ru"><b>OSCP+</b>. Сейчас проходит курс PEN-200 для получения сертификата Offensive
+                        Security Certified Professional. <span class="muted">(в процессе)</span></span>
+                </li>
+            </ul>
+
+            <h2 id="references"><span data-lang="en">References</span><span data-lang="ru">Примечания</span> <span
+                    class="editsection">[<a href="#top">edit</a>]</span></h2>
+            <ol class="references">
+                <li id="cite-1"><a href="https://linkedin.com/in/omars3c" target="_blank" rel="noopener">"Omar Alikhanov,
+                        Founder of tmeet"</a>. LinkedIn.</li>
+                <li id="cite-2"><a href="https://medium.com/@omars3c/how-i-hacked-a-fortune-500-company-in-48-hours-and-got-data-on-30-000-000-users-035c8723be96"
+                        target="_blank" rel="noopener">"How I Hacked a Fortune 500 Company in 48 Hours and Got Data on
+                        30,000,000 Users"</a>. <i>Medium</i>.</li>
+                <li id="cite-3"><span data-lang="en">Security hall of fame and acknowledgements. OpenAI, CERT-EU,
+                        Grammarly, Canva.</span><span data-lang="ru">Зал славы и благодарности по безопасности. OpenAI,
+                        CERT-EU, Grammarly, Canva.</span></li>
+                <li id="cite-4"><a href="https://certs.ine.com/cacc7da8-79fd-4464-9bf8-fd72da80db27" target="_blank"
+                        rel="noopener">"eCPPTv3 certificate verification"</a>. INE.</li>
+            </ol>
+
+        </main>
+
+        <footer class="wiki-footer">
+            <p>
+                <span data-lang="en">This page is a portfolio presented in the style of an encyclopedia article.</span>
+                <span data-lang="ru">Эта страница представляет собой портфолио в формате энциклопедической статьи.</span>
+            </p>
+            <p>
+                <span data-lang="en">Last edited on 26 May 2026. Content by <a href="https://medium.com/@omars3c"
+                        target="_blank" rel="noopener">Omar Alikhanov</a>.</span>
+                <span data-lang="ru">Последнее изменение: 26 мая 2026. Автор: <a href="https://medium.com/@omars3c"
+                        target="_blank" rel="noopener">Омар Алиханов</a>.</span>
+            </p>
+        </footer>
 
     </div>
 
