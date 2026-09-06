@@ -1,35 +1,77 @@
-/* Security Wiki - minimal interactivity */
+/* ============================================================
+   Omar Alikhanov - Minimalist Dark Portfolio
+   Smooth interactions, Tabs navigation, i18n Language toggle
+   Mobile touch optimization
+   ============================================================ */
+
 document.addEventListener('DOMContentLoaded', () => {
 
     /* --- Language switch (EN / RU) with persistence --- */
-    const buttons = document.querySelectorAll('.lang-switch [data-setlang]');
+    const langButtons = document.querySelectorAll('.lang-switch [data-setlang]');
 
     function setLang(lang) {
         document.body.dataset.lang = lang;
         document.documentElement.lang = lang;
         try {
-            localStorage.setItem('wiki-lang', lang);
+            localStorage.setItem('portfolio-lang', lang);
         } catch (e) { /* ignore */ }
-        buttons.forEach(b => b.classList.toggle('active', b.dataset.setlang === lang));
+
+        langButtons.forEach(b => {
+            b.classList.toggle('active', b.dataset.setlang === lang);
+        });
     }
 
-    buttons.forEach(b => b.addEventListener('click', () => setLang(b.dataset.setlang)));
+    langButtons.forEach(btn => {
+        btn.addEventListener('click', () => setLang(btn.dataset.setlang));
+    });
 
-    let saved = null;
+    let savedLang = null;
     try {
-        saved = localStorage.getItem('wiki-lang');
+        savedLang = localStorage.getItem('portfolio-lang') || localStorage.getItem('wiki-lang');
     } catch (e) { /* ignore */ }
-    setLang(saved === 'ru' || saved === 'en' ? saved : 'en');
 
-    /* --- Table of contents show/hide toggle (Wikipedia-style) --- */
-    const toc = document.getElementById('toc');
-    const toggle = document.getElementById('toc-toggle');
+    setLang(savedLang === 'ru' || savedLang === 'en' ? savedLang : 'en');
 
-    if (toc && toggle) {
-        toggle.addEventListener('click', () => {
-            const collapsed = toc.classList.toggle('collapsed');
-            toggle.textContent = collapsed ? '[show]' : '[hide]';
-            toggle.setAttribute('aria-expanded', String(!collapsed));
+    /* --- Tabs Navigation (Screenshot aesthetic & Mobile Centering) --- */
+    const tabButtons = document.querySelectorAll('.tab-btn[data-tab]');
+    const tabPanes = document.querySelectorAll('.tab-content[data-tab-content]');
+
+    function switchTab(tabId) {
+        tabButtons.forEach(btn => {
+            const isActive = btn.dataset.tab === tabId;
+            btn.classList.toggle('active', isActive);
+            if (isActive) {
+                // Smoothly center the active tab in mobile horizontal scroll view
+                btn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+            }
+        });
+
+        tabPanes.forEach(pane => {
+            if (pane.dataset.tabContent === tabId) {
+                pane.classList.add('active');
+            } else {
+                pane.classList.remove('active');
+            }
+        });
+    }
+
+    tabButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+            switchTab(btn.dataset.tab);
+        });
+    });
+
+    /* --- Subtle Card Hover Lighting Effect (Only on devices with pointer hover) --- */
+    if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+        const cards = document.querySelectorAll('.showcase-card, .compact-card, .story-block');
+        cards.forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                card.style.setProperty('--mouse-x', `${x}px`);
+                card.style.setProperty('--mouse-y', `${y}px`);
+            });
         });
     }
 });
